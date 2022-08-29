@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('user_pages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_module_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('page_id');
-            $table->unsignedInteger('course_id');
-            $table->unsignedInteger('module_id');
+            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('module_id');
             $table->boolean('is_completed')->default(0);
             $table->timestamps();
         });

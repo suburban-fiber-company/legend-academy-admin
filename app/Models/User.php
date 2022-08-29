@@ -25,6 +25,7 @@ class User extends Authenticatable
         'address',
         'user_type',
         'department_id',
+        'profile_image'
     ];
 
     /**
@@ -45,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses()
+    {
+        return $this->hasMany(UserCourse::class);
+    }
 }

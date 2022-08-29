@@ -16,6 +16,7 @@ class UserPage extends Model
         'course_id',
         'module_id',
         'is_completed',
+        'user_id'
     ];
 
     public function module()

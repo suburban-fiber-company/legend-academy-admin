@@ -15,4 +15,9 @@ class UserCourse extends Model
         'is_completed',
         'percentage_progress',
     ];
+
+    public function modules()
+    {
+        return hasMany(UserModule::class);
+    }
 }

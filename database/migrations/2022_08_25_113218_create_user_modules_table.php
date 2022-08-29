@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('user_modules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_course_id')->constrained()->onDelete('cascade');
-            $table->unsignedInteger('course_id');
-            $table->unsignedInteger('module_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('module_id');
             $table->boolean('is_completed')->default(0);
             $table->unsignedInteger('percentage_progress')->default(0);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

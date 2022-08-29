@@ -13,6 +13,7 @@ class UserModule extends Model
         'user_course_id',
         'course_id',
         'module_id',
+        'user_id',
         'is_completed',
         'percentage_progress',
     ];
@@ -25,5 +26,10 @@ class UserModule extends Model
     public function user_course()
     {
         return $this->belongsTo(UserCourse::class);
+    }
+
+    public function pages()
+    {
+        return hasMany(UserPage::class);
     }
 }

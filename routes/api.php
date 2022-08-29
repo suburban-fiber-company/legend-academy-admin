@@ -6,6 +6,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +49,24 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/v1/pages/{id}', 'edit');
     Route::put('/v1/pages/{id}', 'update');
     Route::delete('/v1/pages/{id}', 'delete');
+});
+
+Route::controller(DepartmentController::class)->group(function () {
+    Route::get('/v1/departments', 'index');
+    Route::post('/v1/departments', 'save');
+    Route::get('/v1/departments/{id}', 'edit');
+    Route::put('/v1/departments/{id}', 'update');
+    Route::delete('/v1/departments/{id}', 'delete');
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/v1/users', 'index');
+    Route::post('/v1/users', 'save');
+    Route::get('/v1/users/{id}', 'edit');
+    Route::put('/v1/users/{id}', 'update');
+    Route::delete('/v1/users/{id}', 'delete');
+    Route::get('/v1/user-course', 'userCourse');
+    Route::get('/v1/user/{id}/course', 'findUserCourse');
 });
 
 Route::controller(RegisterController::class)->group(function () {
