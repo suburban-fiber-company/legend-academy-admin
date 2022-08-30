@@ -30,7 +30,7 @@ class DepartmentController extends Controller
     public function save(StoreDepartmentRequest $request)
     {
    
-        $department = $this->departmentService->store($request->name);
+        $department = $this->departmentService->store($request->all());
         
         return $this->sendResponse($department, 'Department Created Successfully.', 201);
         

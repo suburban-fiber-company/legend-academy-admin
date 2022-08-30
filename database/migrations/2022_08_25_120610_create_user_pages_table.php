@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('page_id');
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('module_id');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('is_completed')->default(0);
             $table->timestamps();
         });

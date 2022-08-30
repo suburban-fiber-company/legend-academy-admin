@@ -44,7 +44,7 @@ class UserController extends Controller
         return $this->sendResponse($user,'User retrieved Successfully.');
     }
 
-    public function findUserCode($id)
+    public function findUserCourse($id)
     {
         $user = $this->userService->findUserCourse($id);
         if(!$user){

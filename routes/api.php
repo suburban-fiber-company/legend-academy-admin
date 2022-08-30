@@ -66,7 +66,7 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/v1/users/{id}', 'update');
     Route::delete('/v1/users/{id}', 'delete');
     Route::get('/v1/user-course', 'userCourse');
-    Route::get('/v1/user/{id}/course', 'findUserCourse');
+    Route::get('/v1/user/{id}/courses', 'findUserCourse');
 });
 
 Route::controller(RegisterController::class)->group(function () {

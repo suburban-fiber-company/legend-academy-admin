@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Models\UserModule;
+use App\Models\UserCourse;
+use App\Models\Course;
 use App\Models\Module;
 use App\Models\Page;
 use App\Models\UserPage;
@@ -32,7 +34,7 @@ class UserService
 
             $params = $data;
             $params['password'] = Hash::make($params['password']);
-            $user = User::create($data);
+            $user = User::create($params);
             if(!empty($data['courses_id']) && count($data['courses_id'])>0) {
                 foreach($data['courses_id'] as $course_id){
                     $userCourse = $user->courses()->create(['course_id'=>$course_id]);
@@ -46,7 +48,7 @@ class UserService
                         ];
 
                        $userModule =  UserModule::create($params);
-                       $pages = Page::where('module_id', $module['id']);
+                       $pages = Page::where('module_id', $module['id'])->get();
                        foreach($pages as $page) {
                             $params = [
                                 'user_module_id' =>  $userModule->id,
@@ -123,7 +125,7 @@ class UserService
             foreach($modules as $key => $module) {
                 $userPages = UserPage::where('user_id', $user->id)
                             ->where('module_id',$module['id'])->get();
-                $pages = Pages::whereIn('id', $userPages->pluck('page_id'))->get();
+                $pages = Page::whereIn('id', $userPages->pluck('page_id'))->get();
                 $pages = $pages->toArray();
                 $modules[$key]['pages'] = $pages;
             }
@@ -135,7 +137,7 @@ class UserService
         $user = $user->toArray();
         $user['courses'] = $courses;
         
-        return new UserResource($user);
+        return $user;
     }
 
     public function destroy($id)
