@@ -33,7 +33,7 @@ class CourseService
         try{
             DB::beginTransaction();
 
-            $course['user_id'] = 1;
+            $course['user_id'] = Auth()->user()->id;
             $course = Course::create($course);
 
             $module = $course->modules()->create([

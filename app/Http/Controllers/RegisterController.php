@@ -16,12 +16,37 @@ class RegisterController extends Controller
 {
     use BaseResponse;
 
-    /**
-     * Register api
-     *  @param  \App\Http\Requests\StorePostRequest  $request
-     * 
-     * @return \Illuminate\Http\Response
+     /**
+     * @OA\Post(
+     *      path="/api/v1/register",
+     *      operationId="Registration",
+     *      tags={"Auth"},
+     *      summary="Register a new user",
+     *      description="Returns user data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreUserRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
+
     public function register(Request $request)
     {
         try {
@@ -43,6 +68,37 @@ class RegisterController extends Controller
      * Login api
      *
      * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Post(
+     *      path="/api/v1/login",
+     *      operationId="Login",
+     *      tags={"Auth"},
+     *      summary="Login a user",
+     *      description="Returns user data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreUserRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
      */
 
     public function login(Request $request)

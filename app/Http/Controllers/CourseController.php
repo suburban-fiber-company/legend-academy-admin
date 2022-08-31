@@ -19,6 +19,31 @@ class CourseController extends Controller
         $this->courseService = $courseService; 
     }
 
+      /**
+     * @OA\Get(
+     *      path="/api/v1/courses",
+     *      operationId="getCoursesList",
+     *      tags={"Courses"},
+     *      summary="Get list of courses",
+     *      description="Returns list of courses",
+     *      security={ {"bearer": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/CourseResource"
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+
     public function index()
     {
         $courses = $this->courseService->all();
@@ -37,6 +62,38 @@ class CourseController extends Controller
         return $this->sendResponse($courses, 'Record retrieved successfully.');
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/v1/courses",
+     *      operationId="storeCourse",
+     *      tags={"Courses"},
+     *      summary="Store new course",
+     *      description="Returns course data",
+     *      security={ {"bearer": {} }},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreCourseRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+
     public function save(StoreCourseRequest $request)
     {
         
@@ -45,6 +102,43 @@ class CourseController extends Controller
         return $this->sendResponse($course, 'Course Created Successfully.', 201);
         
     }
+
+    /**
+     * @OA\Get(
+     *      path="/api/v1/courses/{id}",
+     *      operationId="getCourseById",
+     *      tags={"Courses"},
+     *      summary="Get Course information",
+     *      description="Returns project data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
 
     public function edit($id)
     {
@@ -64,6 +158,51 @@ class CourseController extends Controller
         return $this->sendResponse($course,'Course retrieved Successfully.');
     }
 
+    /**
+     * @OA\Put(
+     *      path="/api/v1/courses/{id}",
+     *      operationId="updateCourse",
+     *      tags={"Courses"},
+     *      summary="Update existing course",
+     *      description="Returns updated course data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UpdateCourseRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+
     public function update(Request $request, $id)
     {   
         $course = $this->courseService->update($request->all(), $id);
@@ -72,6 +211,44 @@ class CourseController extends Controller
         }
         return $this->sendResponse($course,'Course Updated Successfully.');
     }
+
+    
+    /**
+     * @OA\Delete(
+     *      path="/api/v1/courses/{id}",
+     *      operationId="deleteCourse",
+     *      tags={"Courses"},
+     *      summary="Delete existing course",
+     *      description="Deletes a record and returns no success message",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
 
     public function delete($id)
     {
