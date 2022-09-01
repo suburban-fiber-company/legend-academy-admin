@@ -98,7 +98,7 @@ class DepartmentController extends Controller
      *      operationId="getDepartmentById",
      *      tags={"Departments"},
      *      summary="Get Department information",
-     *      description="Returns project data",
+     *      description="Returns departments data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",

@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth:api'])->group(function () {
+
     Route::controller(CourseController::class)->group(function () {
         Route::get('/v1/courses', 'index');
         Route::post('/v1/courses', 'save');
@@ -68,7 +68,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/v1/user-course', 'userCourse');
         Route::get('/v1/user/{id}/courses', 'findUserCourse');
     });
-});
+
 
 Route::controller(RegisterController::class)->group(function () {
     Route::post('/v1/register', 'register');

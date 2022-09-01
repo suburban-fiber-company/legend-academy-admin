@@ -96,7 +96,7 @@
                     "Courses"
                 ],
                 "summary": "Get Course information",
-                "description": "Returns project data",
+                "description": "Returns course data",
                 "operationId": "getCourseById",
                 "parameters": [
                     {
@@ -321,7 +321,7 @@
                     "Departments"
                 ],
                 "summary": "Get Department information",
-                "description": "Returns project data",
+                "description": "Returns departments data",
                 "operationId": "getDepartmentById",
                 "parameters": [
                     {
@@ -431,6 +431,456 @@
                         "name": "id",
                         "in": "path",
                         "description": "Department id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/modules": {
+            "get": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Get list of module",
+                "description": "Returns list of modules",
+                "operationId": "getModulesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ModuleResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Store new course module",
+                "description": "Returns course module data",
+                "operationId": "storeModule",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreModuleRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/modules/{id}": {
+            "get": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Get Module information",
+                "description": "Returns modules data",
+                "operationId": "getModuleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Modules"
+                ],
+                "summary": "Update existing module",
+                "description": "Returns updated module data",
+                "operationId": "updateModule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateModuleRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Delete existing module",
+                "description": "Deletes a record and returns no success message",
+                "operationId": "deleteModule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Module id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pages": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get list of module pages",
+                "description": "Returns list of module pages",
+                "operationId": "getPagesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PageResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Store new course module page",
+                "description": "Returns course module page data",
+                "operationId": "storePage",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Page"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pages/{id}": {
+            "get": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Get Module Page information",
+                "description": "Returns module page data",
+                "operationId": "getPageById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Page"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Pages"
+                ],
+                "summary": "Update existing module page",
+                "description": "Returns updated module page data",
+                "operationId": "updatePage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePageRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Page"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Departments"
+                ],
+                "summary": "Delete existing module page",
+                "description": "Deletes a record and returns no success message",
+                "operationId": "deletePage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Page id",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -868,6 +1318,110 @@
                     "name": "Depertment"
                 }
             },
+            "Module": {
+                "title": "Module",
+                "description": "Module model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "title": {
+                        "title": "Name",
+                        "description": "Title of the new course module",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "pages": {
+                        "$ref": "#/components/schemas/Page"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Module"
+                }
+            },
+            "Page": {
+                "title": "Page",
+                "description": "Page model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "title": {
+                        "title": "Title",
+                        "description": "Title of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "content": {
+                        "title": "Content",
+                        "description": "Content of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Page Model"
+                }
+            },
             "User": {
                 "title": "User",
                 "description": "User model",
@@ -987,6 +1541,59 @@
                 },
                 "type": "object"
             },
+            "StoreModuleRequest": {
+                "title": "Store Course Module request",
+                "description": "Store Course Module request body data",
+                "properties": {
+                    "title": {
+                        "title": "Name",
+                        "description": "Title of the new course module",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "StorePageRequest": {
+                "title": "Store Course Module Page request",
+                "description": "Store Course Module page request body data",
+                "properties": {
+                    "title": {
+                        "title": "Title",
+                        "description": "Title of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "content": {
+                        "title": "Content",
+                        "description": "Content of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "StoreUserRequest": {
                 "title": "Store User request",
                 "description": "Store User request body data",
@@ -1092,6 +1699,59 @@
                         "description": "Name of the new department",
                         "type": "string",
                         "example": "Software"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateModuleRequest": {
+                "title": "Store Course Module request",
+                "description": "Store Course Module request body data",
+                "properties": {
+                    "title": {
+                        "title": "Name",
+                        "description": "Title of the new course module",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePageRequest": {
+                "title": "Store Course Module Page request",
+                "description": "Store Course Module page request body data",
+                "properties": {
+                    "title": {
+                        "title": "Title",
+                        "description": "Title of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "content": {
+                        "title": "Content",
+                        "description": "Content of the new course module page",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new course module page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
                     }
                 },
                 "type": "object"
@@ -1202,6 +1862,54 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Department"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CourseResource"
+                }
+            },
+            "ModuleResource": {
+                "title": "CourseResource",
+                "description": "Course resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Module"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CourseResource"
+                }
+            },
+            "PageResource": {
+                "title": "CourseResource",
+                "description": "Course resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Page"
                         }
                     }
                 },

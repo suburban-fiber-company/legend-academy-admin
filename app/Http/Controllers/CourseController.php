@@ -109,7 +109,7 @@ class CourseController extends Controller
      *      operationId="getCourseById",
      *      tags={"Courses"},
      *      summary="Get Course information",
-     *      description="Returns project data",
+     *      description="Returns course data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
