@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::put('/v1/users/{id}', 'update');
         Route::delete('/v1/users/{id}', 'delete');
         Route::get('/v1/user-course', 'userCourse');
-        Route::get('/v1/user/{id}/courses', 'findUserCourse');
+        Route::get('/v1/users/{id}/courses', 'findUserCourse');
     });
 
 

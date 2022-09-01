@@ -123,4 +123,14 @@ class Course {
     */
    public $status;
 
+    /**
+     * @OA\Property(
+     *     title="Module",
+     *     description="Module model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Module")
+     * )
+     */
+    private $modules;
+
 }

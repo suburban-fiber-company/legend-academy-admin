@@ -90,6 +90,39 @@
                 ]
             }
         },
+        "/api/v1/courses-modules": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get list of courses with modules",
+                "description": "Returns list of courses with modules",
+                "operationId": "Course Modules",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CourseResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/courses/{id}": {
             "get": {
                 "tags": [
@@ -229,6 +262,53 @@
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/courses/{id}modules": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get Course information",
+                "description": "Returns course data",
+                "operationId": "getCourseModuleById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Course id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Course"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 },
                 "security": [
@@ -1219,6 +1299,53 @@
                     }
                 ]
             }
+        },
+        "/api/v1/users/{id}/courses": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get User information",
+                "description": "Returns user with courses data",
+                "operationId": "getUserCourseById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -1288,6 +1415,14 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 0
+                    },
+                    "modules": {
+                        "title": "Module",
+                        "description": "Module model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Module"
+                        }
                     }
                 },
                 "type": "object",
@@ -1357,7 +1492,12 @@
                         "example": 1
                     },
                     "pages": {
-                        "$ref": "#/components/schemas/Page"
+                        "title": "Page",
+                        "description": "Page model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Page"
+                        }
                     }
                 },
                 "type": "object",
@@ -1488,6 +1628,14 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 1
+                    },
+                    "courses": {
+                        "title": "Course",
+                        "description": "Course model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Course"
+                        }
                     }
                 },
                 "type": "object",
@@ -1868,6 +2016,30 @@
                 "type": "object",
                 "xml": {
                     "name": "CourseResource"
+                }
+            },
+            "ModulePageResource": {
+                "title": "ModulePageResource",
+                "description": "Course resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Module"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ModulePageResource"
                 }
             },
             "ModuleResource": {

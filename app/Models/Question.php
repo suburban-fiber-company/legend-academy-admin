@@ -8,4 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    public function options() {
+        return $this->hasMany(Option::class);
+    }
+
+    public function correctOptionsCount() {
+        return $this->options()->where('correct', 1 )->count();
+    }
+
+    public function correctOptions() {
+       return  $this->options()->where('correct', 1)->get();
+    }
+
+    public function topic() {
+        return $this->hasOne(Module::class);
+    }
+
+    public function course() {
+        return $this->hasOne(Course::class);
+    }
 }

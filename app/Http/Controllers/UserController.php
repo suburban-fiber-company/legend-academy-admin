@@ -136,6 +136,43 @@ class UserController extends Controller
         return $this->sendResponse($user,'User retrieved Successfully.');
     }
 
+       /**
+     * @OA\Get(
+     *      path="/api/v1/users/{id}/courses",
+     *      operationId="getUserCourseById",
+     *      tags={"Users"},
+     *      summary="Get User information",
+     *      description="Returns user with courses data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="User id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+
     public function findUserCourse($id)
     {
         $user = $this->userService->findUserCourse($id);

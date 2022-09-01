@@ -75,13 +75,13 @@ class Module {
      */
     public $course_id;
 
-     /**
+    /**
      * @OA\Property(
      *     title="Page",
-     *     description="Module Page model"
+     *     description="Page model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Page")
      * )
-     *
-     * @var \App\Virtual\Models\Page
      */
     private $pages;
 

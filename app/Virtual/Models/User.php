@@ -46,7 +46,7 @@ class User {
      *
      * @var string
      */
-    public $password;
+    private $password;
 
     /**
      * @OA\Property(
@@ -129,5 +129,15 @@ class User {
      * @var integer
      */
     public $department_id;
+
+    /**
+     * @OA\Property(
+     *     title="Course",
+     *     description="Course model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Course")
+     * )
+     */
+    private $courses;
 
 }

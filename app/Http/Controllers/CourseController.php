@@ -30,7 +30,8 @@ class CourseController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CourseResource"
+     *          @OA\JsonContent(
+     *              ref="#/components/schemas/CourseResource"
      *          ),
      *       ),
      *      @OA\Response(
@@ -53,6 +54,31 @@ class CourseController extends Controller
         return $this->sendResponse($courses, 'Record retrieved successfully.');
     }
 
+      /**
+     * @OA\Get(
+     *      path="/api/v1/courses-modules",
+     *      operationId="Course Modules",
+     *      tags={"Courses"},
+     *      summary="Get list of courses with modules",
+     *      description="Returns list of courses with modules",
+     *      security={ {"bearer": {} }},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              ref="#/components/schemas/CourseResource"
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
     public function courseModule()
     {
         $courses = $this->courseService->courseModule();
@@ -148,6 +174,43 @@ class CourseController extends Controller
         }
         return $this->sendResponse($course,'Course retrieved Successfully.');
     }
+
+     /**
+     * @OA\Get(
+     *      path="/api/v1/courses/{id}modules",
+     *      operationId="getCourseModuleById",
+     *      tags={"Courses"},
+     *      summary="Get Course information",
+     *      description="Returns course data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
 
     public function findCourseModule($id)
     {

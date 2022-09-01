@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('user_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->foreignId('module_id')->constrained()->onDelete('cascade');
-            $table->text('question_text');
-            $table->smallInteger('time_limit')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('result_id');
+            $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('module_id');
+            $table->unsignedBigInteger('course_id');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('user_options');
     }
 };
