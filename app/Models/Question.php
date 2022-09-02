@@ -9,8 +9,15 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'course_id',
+        'module_id',
+        'question_text',
+        'time_limit'
+    ];
+
     public function options() {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(QuestionOption::class);
     }
 
     public function correctOptionsCount() {

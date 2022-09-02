@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResultRequest;
-use App\Question;
-use App\Result;
-use App\User;
-use App\UserOption;
+use App\Models\Question;
+use App\Models\Result;
+use App\Http\Resources\ResultResource;
+use App\Model\User;
+use App\Models\UserOption;
 use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\BaseResponse;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use DB;
 
 class ResultsController extends Controller
 {
 
-    public function __construct() {
-        $this->middleware('admin')->except(['store', 'show']);
-    }
+    use BaseResponse;
 
     /**
      * Display a listing of the resource.
@@ -29,8 +31,7 @@ class ResultsController extends Controller
 
         $allResults = Result::orderBy('created_at', 'desc')->get();
 
-        return view('results.index', ['allResults' => $allResults]);
-
+        return $this->sendResponse(ResultResource::collection($allResults), 'Results Retrieved Successfully.');
     }
 
     /**
@@ -51,11 +52,13 @@ class ResultsController extends Controller
      */
     public function store(StoreResultRequest $request)
     {
-        //
-        $score = 0;
-        $questions = $request->input('option');
 
-        if ($questions) {
+        try {
+            DB::beginTransaction();
+
+            $score = 0;
+            $questions = $request->option;
+
             foreach ($questions as $key => $value) {
                 $question = Question::find($key);
                 $userCorrectAnswers = 0;
@@ -72,9 +75,10 @@ class ResultsController extends Controller
             }
             $result = new Result();
             $result->user_id = Auth::user()->id;
-            $result->topic_id = $request->input('topic_id');
+            $result->course_id = $request->course_id;
+            $result->module_id = $request->module_id;
             $result->correct_answers = $score;
-            $result->questions_count = count($request->input('question_id'));
+            $result->questions_count = count($request->question_id);
             $result->save();
 
             foreach ($questions as $key => $value) {
@@ -83,18 +87,22 @@ class ResultsController extends Controller
                     $result->user_id = Auth::user()->id;
                     $userOption->result_id = $result->id;
                     $userOption->question_id = $key;
-                    $userOption->topic_id = $request->input('topic_id');
+                    $userOption->course_id = $request->course_id;
+                    $userOption->module_id = $request->module_id;
                     $userOption->option_id = $answerKey;
                     $userOption->save();
                 }
             }
+            DB::commit();
+            $result = Result::find($result->id);
+            return $this->sendResponse(new ResultResource($result), 'Result Saved Successfully.',201);
 
-            return redirect(route('results.show', $result->id));
-        } else {
-            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new HttpResponseException(
+                $this->sendError('An Error Occured', ['error' => $e->getMessage()], 500)
+            );
         }
-
-
     }
 
     /**
@@ -109,8 +117,7 @@ class ResultsController extends Controller
 
         $result = Result::find($id);
 
-        return view('results.show', ['result' => $result]);
-
+        return $this->sendResponse(new ResultResource($result), 'Result Retrieved Successfully.');
     }
 
     /**
@@ -122,6 +129,10 @@ class ResultsController extends Controller
     public function edit($id)
     {
         //
+
+        $result = Result::find($id);
+
+        return $this->sendResponse(new ResultResource($result), 'Result Retrieved Successfully.');
     }
 
     /**

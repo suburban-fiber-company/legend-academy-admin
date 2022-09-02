@@ -25,7 +25,6 @@ class UpdateQuestionOptionsRequest extends FormRequest
     {
         return [
             'question_id' => 'required|exists:questions,id',
-            'option' => 'required',
         ];
     }
 }

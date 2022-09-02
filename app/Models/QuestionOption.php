@@ -9,6 +9,12 @@ class QuestionOption extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'question_id',
+        'option',
+        'correct',
+    ];
+
     public function question()
     {
         return $this->hasOne(Question::class);

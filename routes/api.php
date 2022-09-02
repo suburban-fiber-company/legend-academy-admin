@@ -8,6 +8,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionsOptionsController;
+use App\Http\Controllers\ResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::post('/v1/courses', 'save');
         Route::get('/v1/courses/{id}', 'edit');
         Route::put('/v1/courses/{id}', 'update');
+        Route::put('/v1/publish-course/{id}', 'publish');
         Route::delete('/v1/courses/{id}', 'delete');
         Route::get('/v1/courses-modules', 'courseModule');
         Route::get('/v1/courses/{id}/modules', 'findCourseModule');
@@ -67,6 +71,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('/v1/users/{id}', 'delete');
         Route::get('/v1/user-course', 'userCourse');
         Route::get('/v1/users/{id}/courses', 'findUserCourse');
+    });
+
+    Route::controller(QuestionController::class)->group(function () {
+        Route::get('/v1/questions', 'index');
+        Route::post('/v1/questions', 'store');
+        Route::get('/v1/questions/{id}', 'edit');
+        Route::put('/v1/questions/{id}', 'update');
+        Route::delete('/v1/questions/{id}', 'destroy');
+    });
+
+    Route::controller(QuestionsOptionsController::class)->group(function () {
+        Route::get('/v1/options/questions', 'index');
+        Route::post('/v1/options/questions', 'store');
+        Route::put('/v1/options/questions/{id}', 'update');
+        Route::get('/v1/options/questions/{id}', 'edit');
+        Route::delete('/v1/options/questions/{id}', 'destroy');
+    });
+
+    Route::controller(ResultsController::class)->group(function () {
+        Route::get('/v1/results', 'index');
+        Route::post('/v1/results', 'store');
+        Route::get('/v1/results/{id}', 'show');
     });
 
 

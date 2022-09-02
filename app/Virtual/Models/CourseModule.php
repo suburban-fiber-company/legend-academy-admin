@@ -4,15 +4,15 @@ namespace App\Virtual\Models;
 
 /**
  * @OA\Schema(
- *     title="Course",
- *     description="Course model",
+ *     title="CourseModule",
+ *     description="Course module model",
  *     @OA\Xml(
- *         name="Course"
+ *         name="CourseModule"
  *     )
  * )
  */
 
-class Course {
+class CourseModule {
 
      /**
      * @OA\Property(
@@ -122,5 +122,15 @@ class Course {
     * @var integer
     */
    public $status;
+
+   /**
+     * @OA\Property(
+     *     title="Module",
+     *     description="Module model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Module")
+     * )
+     */
+    private $modules;
 
 }

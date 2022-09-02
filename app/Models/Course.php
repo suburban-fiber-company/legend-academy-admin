@@ -16,7 +16,20 @@ class Course extends Model
         'user_id',
         'department_id',
         'status',
+        'unit_id'
     ];
+
+    public function getStatusAttribute($value)
+    {   
+        
+        if($value == 1){
+            
+            return 'Published';
+        }
+        else{
+            return 'Not Published';
+        }
+    }
 
     public function modules()
     {

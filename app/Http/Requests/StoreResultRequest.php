@@ -3,9 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Traits\BaseResponse;
 
 class StoreResultRequest extends FormRequest
-{
+{   
+    use BaseResponse;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +31,17 @@ class StoreResultRequest extends FormRequest
     {
         return [
             'option' => 'required',
-            'topic_id' => 'required|exists:topics,id',
+            'module_id' => 'required',
+            'course_id' => 'required',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = (new ValidationException($validator))->errors();
+
+        throw new HttpResponseException(
+            $this->sendError('An Error Occured', $errors,JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 }

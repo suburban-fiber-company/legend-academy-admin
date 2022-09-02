@@ -68,7 +68,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Course"
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Course"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -104,7 +114,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CourseResource"
+                                    "$ref": "#/components/schemas/CourseModuleResource"
                                 }
                             }
                         }
@@ -271,7 +281,7 @@
                 ]
             }
         },
-        "/api/v1/courses/{id}modules": {
+        "/api/v1/courses/{id}/modules": {
             "get": {
                 "tags": [
                     "Courses"
@@ -296,6 +306,63 @@
                         "content": {
                             "application/json": {
                                 "schema": {
+                                    "$ref": "#/components/schemas/Module"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/publish-course/{id}": {
+            "put": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Publish a course",
+                "description": "Returns updated course data",
+                "operationId": "publishCourse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Course id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCourseRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
                                     "$ref": "#/components/schemas/Course"
                                 }
                             }
@@ -309,6 +376,9 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 },
                 "security": [
@@ -993,6 +1063,415 @@
                 ]
             }
         },
+        "/api/v1/questions": {
+            "get": {
+                "tags": [
+                    "QuizQuestion"
+                ],
+                "summary": "Get list of questions",
+                "description": "Returns list of questions",
+                "operationId": "getQuestionList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QuestionResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "QuizQuestion"
+                ],
+                "summary": "Store new question",
+                "description": "Returns question data",
+                "operationId": "storeQuestion",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreQuestionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Question"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/questions/{id}": {
+            "get": {
+                "tags": [
+                    "QuizQuestion"
+                ],
+                "summary": "Get Question information",
+                "description": "Returns question data",
+                "operationId": "getQuestionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Question"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "QuizQuestion"
+                ],
+                "summary": "Update existing question",
+                "description": "Returns updated question data",
+                "operationId": "updateQuestion",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateQuestionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Question"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "QuizQuestion"
+                ],
+                "summary": "Delete existing question",
+                "description": "Deletes a record and returns no success message",
+                "operationId": "deleteQuestion",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/options/questions": {
+            "get": {
+                "tags": [
+                    "QuizQuestionOption"
+                ],
+                "summary": "Get list of question options",
+                "description": "Returns list of question options",
+                "operationId": "getQuestionOptionList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/QuestionOption"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/options/questions/{id}": {
+            "get": {
+                "tags": [
+                    "QuizQuestionOption"
+                ],
+                "summary": "Get Question option information",
+                "description": "Returns question option data",
+                "operationId": "getQuestionOptionsById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "QuestionOption ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QuestionOption"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "QuizQuestionOption"
+                ],
+                "summary": "Update existing question option",
+                "description": "Returns updated question option data",
+                "operationId": "updateQuestionOption",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "QuestionOption id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateQuestionOptionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QuestionOption"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "QuizQuestionOption"
+                ],
+                "summary": "Delete existing question option",
+                "description": "Deletes a record and returns no success message",
+                "operationId": "deleteQuestionOption",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "QuestionOption id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/register": {
             "post": {
                 "tags": [
@@ -1415,6 +1894,78 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 0
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Course"
+                }
+            },
+            "CourseModule": {
+                "title": "CourseModule",
+                "description": "Course module model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new course",
+                        "type": "string",
+                        "example": "Introduction to workpkace"
+                    },
+                    "number_of_modules": {
+                        "title": "Number Of Modules",
+                        "description": "Total Number Of Modules",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "number_enrolled": {
+                        "title": "Number Of Enrolled",
+                        "description": "Total Number Of Enrolled Student",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "user_id": {
+                        "title": "User ID",
+                        "description": "User's id of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department's id of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "status": {
+                        "title": "Status",
+                        "description": "Status of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 0
                     },
                     "modules": {
                         "title": "Module",
@@ -1427,7 +1978,7 @@
                 },
                 "type": "object",
                 "xml": {
-                    "name": "Course"
+                    "name": "CourseModule"
                 }
             },
             "Department": {
@@ -1560,6 +2111,123 @@
                 "type": "object",
                 "xml": {
                     "name": "Page Model"
+                }
+            },
+            "Question": {
+                "title": "Question",
+                "description": "Question model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "question_text": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "What is Laravel"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "time_limit": {
+                        "title": "Time Limit",
+                        "description": "Time Limit (sec) of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "question_options": {
+                        "title": "QuestionOption",
+                        "description": "QuestionOption model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/QuestionOption"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Question"
+                }
+            },
+            "QuestionOption": {
+                "title": "Question",
+                "description": "Question model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "option": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "Laravel is an MVC"
+                    },
+                    "correct": {
+                        "title": "Correct answer",
+                        "description": "To determine if this option is correct",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 0
+                    },
+                    "question_id": {
+                        "title": "Question ID",
+                        "description": "Question id of the new question option",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Question"
                 }
             },
             "User": {
@@ -1742,6 +2410,68 @@
                 },
                 "type": "object"
             },
+            "StoreQuestionOptionRequest": {
+                "title": "Store Question Option request",
+                "description": "Store Question option request body data",
+                "properties": {
+                    "option": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "Laravel is an MVC"
+                    },
+                    "correct": {
+                        "title": "Correct answer",
+                        "description": "To determine if this option is correct, 1 is correct answer",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 0
+                    }
+                },
+                "type": "object"
+            },
+            "StoreQuestionRequest": {
+                "title": "Store Question request",
+                "description": "Store Question request body data",
+                "properties": {
+                    "question_text": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "What is Laravel"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "time_limit": {
+                        "title": "Time Limit",
+                        "description": "Time Limit (sec) of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "question_options": {
+                        "title": "QuestionOption",
+                        "description": "QuestionOption model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StoreQuestionOptionRequest"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "StoreUserRequest": {
                 "title": "Store User request",
                 "description": "Store User request body data",
@@ -1904,6 +2634,60 @@
                 },
                 "type": "object"
             },
+            "UpdateQuestionOptionRequest": {
+                "title": "Update Question Option request",
+                "description": "Store Question option request body data",
+                "properties": {
+                    "option": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "Laravel is an MVC"
+                    },
+                    "correct": {
+                        "title": "Correct answer",
+                        "description": "To determine if this option is correct, 1 is correct answer",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 0
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateQuestionRequest": {
+                "title": "Store Question request",
+                "description": "Store Question request body data",
+                "properties": {
+                    "question_text": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "What is Laravel"
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course id of the new question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module id of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "time_limit": {
+                        "title": "Time Limit",
+                        "description": "Time Limit (sec) of the new Question",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "UpdateUserRequest": {
                 "title": "Store User request",
                 "description": "Store User request body data",
@@ -1969,6 +2753,30 @@
                     }
                 },
                 "type": "object"
+            },
+            "CourseModuleResource": {
+                "title": "CourseResource",
+                "description": "Course resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CourseModule"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CourseResource"
+                }
             },
             "CourseResource": {
                 "title": "CourseResource",
@@ -2088,6 +2896,49 @@
                 "type": "object",
                 "xml": {
                     "name": "CourseResource"
+                }
+            },
+            "QuestionOptionResource": {
+                "title": "QuestionOptionResource",
+                "description": "Question option resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/QuestionOption"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "QuestionOptionResource"
+                }
+            },
+            "QuestionResource": {
+                "title": "QuestionResource",
+                "description": "Question resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Question"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "QuestionResource"
                 }
             },
             "UserResource": {

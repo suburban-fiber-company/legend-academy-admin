@@ -65,6 +65,7 @@ class CourseService
             if (is_null($course)) {
                 return false;
             }
+            unset($data['status']);
             $course->update($data);
 
             return new CourseResource($course);
@@ -100,7 +101,7 @@ class CourseService
     public function publish($course, $id)
     {
         $course = Course::find($id);
-        $course->update($course);
+        $course->update(['status'=>1]);
 
         return new CourseResource($course);
     }

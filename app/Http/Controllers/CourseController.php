@@ -66,7 +66,7 @@ class CourseController extends Controller
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              ref="#/components/schemas/CourseResource"
+     *              ref="#/components/schemas/CourseModuleResource"
      *          ),
      *       ),
      *      @OA\Response(
@@ -103,7 +103,19 @@ class CourseController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/Course"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -177,7 +189,7 @@ class CourseController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/api/v1/courses/{id}modules",
+     *      path="/api/v1/courses/{id}/modules",
      *      operationId="getCourseModuleById",
      *      tags={"Courses"},
      *      summary="Get Course information",
@@ -195,7 +207,7 @@ class CourseController extends Controller
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *          @OA\JsonContent(ref="#/components/schemas/Module")
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -273,6 +285,60 @@ class CourseController extends Controller
             return $this->sendError('Course not Found.',[], 404); 
         }
         return $this->sendResponse($course,'Course Updated Successfully.');
+    }
+
+      /**
+     * @OA\Put(
+     *      path="/api/v1/publish-course/{id}",
+     *      operationId="publishCourse",
+     *      tags={"Courses"},
+     *      summary="Publish a course",
+     *      description="Returns updated course data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/UpdateCourseRequest")
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+
+    public function publish(Request $request, $id)
+    {   
+        $course = $this->courseService->publish($request->all(), $id);
+        if(!$course){
+            return $this->sendError('Course not Found.',[], 404); 
+        }
+        return $this->sendResponse($course,'Course Published Successfully.');
     }
 
     
