@@ -26,11 +26,37 @@ class UserController extends Controller
      *      summary="Get list of users",
      *      description="Returns list of users",
      *      security={ {"bearer": {} }},
+        *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/UserResource"
-     *          ),
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Users Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              type="array",
+     *               @OA\Items(ref="#/components/schemas/User")
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -64,10 +90,36 @@ class UserController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/StoreUserRequest")
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="User created successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/User"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -97,7 +149,7 @@ class UserController extends Controller
      *      operationId="getUserById",
      *      tags={"Users"},
      *      summary="Get User information",
-     *      description="Returns project data",
+     *      description="Returns user data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
@@ -108,10 +160,36 @@ class UserController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="User Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/User"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -153,10 +231,36 @@ class UserController extends Controller
      *              type="integer"
      *          )
      *      ),
+        *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="User Course Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/UserCourse"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -203,10 +307,36 @@ class UserController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/UpdateUserRequest")
      *      ),
+         *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=202,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="User Updated Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/User"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -253,10 +383,36 @@ class UserController extends Controller
      *              type="integer"
      *          )
      *      ),
+          *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=204,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="User Deleted Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,

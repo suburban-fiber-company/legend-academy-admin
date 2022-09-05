@@ -45,4 +45,16 @@ class UpdateCourseRequest {
      * @var integer
      */
     public $department_id;
+
+     /**
+     * @OA\Property(
+     *      title="Unit ID",
+     *      description="Department unit ID of the new course",
+     *      format="int64",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    public $unit_id;
 }

@@ -26,11 +26,37 @@ class DepartmentController extends Controller
      *      summary="Get list of department",
      *      description="Returns list of departments",
      *      security={ {"bearer": {} }},
+      *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/DepartmentResource"
-     *          ),
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Departments Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              type="array",
+     *               @OA\Items(ref="#/components/schemas/DepartmentUnit")
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -64,10 +90,36 @@ class DepartmentController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/StoreDepartmentRequest")
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Department")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Department created successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/Department"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -109,10 +161,36 @@ class DepartmentController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Department")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Department Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/DepartmentUnit"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -158,10 +236,36 @@ class DepartmentController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/UpdateDepartmentRequest")
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=202,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Department")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Department Updated Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/Department"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -208,10 +312,36 @@ class DepartmentController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=204,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Department Deleted Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,

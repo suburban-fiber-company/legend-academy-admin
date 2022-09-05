@@ -4,25 +4,14 @@ namespace App\Virtual\Resources;
 
 /**
  * @OA\Schema(
- *     title="CourseResource",
- *     description="Course resource",
+ *     title="DepartmentResource",
+ *     description="Department resource",
  *     @OA\Xml(
- *         name="CourseResource"
+ *         name="DepartmentResource"
  *     )
  * )
  */
 class DepartmentResource{
-      /**
-     * @OA\Property(
-     *      title="Success",
-     *      description="success",
-     *      example=True
-     * )
-     *
-     * @var boolean
-     */
-
-    public $success;
 
      /**
      * @OA\Property(

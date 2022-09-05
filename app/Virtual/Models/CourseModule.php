@@ -61,6 +61,64 @@ class CourseModule {
      */
     public $number_enrolled;
 
+      /**
+     * @OA\Property(
+     *      title="User ID",
+     *      description="User's id of the new course",
+     *      format="int64",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    public $user_id;
+
+     /**
+     * @OA\Property(
+     *      title="Department ID",
+     *      description="Department's id of the new course",
+     *      format="int64",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    public $department_id;
+
+     /**
+     * @OA\Property(
+     *      title="Unit ID",
+     *      description="Department unit ID of the new course",
+     *      format="int64",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    public $unit_id;
+
+    /**
+    * @OA\Property(
+    *      title="Status",
+    *      description="Status of the new course",
+    *      format="int64",
+    *      example="Published"
+    * )
+    *
+    * @var integer
+    */
+   public $status;
+
+   /**
+     * @OA\Property(
+     *     title="Module",
+     *     description="Module model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Module")
+     * )
+     */
+    private $modules;
+
     /**
      * @OA\Property(
      *     title="Created at",
@@ -86,51 +144,5 @@ class CourseModule {
      * @var \DateTime
      */
     private $updated_at;
-
-    /**
-     * @OA\Property(
-     *      title="User ID",
-     *      description="User's id of the new course",
-     *      format="int64",
-     *      example=1
-     * )
-     *
-     * @var integer
-     */
-    public $user_id;
-
-     /**
-     * @OA\Property(
-     *      title="Department ID",
-     *      description="Department's id of the new course",
-     *      format="int64",
-     *      example=1
-     * )
-     *
-     * @var integer
-     */
-    public $department_id;
-
-    /**
-    * @OA\Property(
-    *      title="Status",
-    *      description="Status of the new course",
-    *      format="int64",
-    *      example=0
-    * )
-    *
-    * @var integer
-    */
-   public $status;
-
-   /**
-     * @OA\Property(
-     *     title="Module",
-     *     description="Module model",
-     *      type="array",
-     *      @OA\Items(ref="#/components/schemas/Module")
-     * )
-     */
-    private $modules;
 
 }

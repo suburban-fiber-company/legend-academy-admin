@@ -27,12 +27,37 @@ class CourseController extends Controller
      *      summary="Get list of courses",
      *      description="Returns list of courses",
      *      security={ {"bearer": {} }},
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              ref="#/components/schemas/CourseResource"
-     *          ),
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              type="array",
+     *               @OA\Items(ref="#/components/schemas/Course")
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -62,12 +87,37 @@ class CourseController extends Controller
      *      summary="Get list of courses with modules",
      *      description="Returns list of courses with modules",
      *      security={ {"bearer": {} }},
+    *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              ref="#/components/schemas/CourseModuleResource"
-     *          ),
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              type="array",
+     *               @OA\Items(ref="#/components/schemas/CourseModule")
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,
@@ -100,12 +150,26 @@ class CourseController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/StoreCourseRequest")
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
      *          @OA\JsonContent(
      *             type="object",
      *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course created successfully"
+     *             ),
+     *              @OA\Property(
      *                  property="success",
      *                  type="boolean",
      *                  description="success",
@@ -158,10 +222,36 @@ class CourseController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/Course"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -204,10 +294,36 @@ class CourseController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Module")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Module Retrieved Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/Module"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -254,10 +370,36 @@ class CourseController extends Controller
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/UpdateCourseRequest")
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=202,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Updated Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               ref="#/components/schemas/Course"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -288,12 +430,12 @@ class CourseController extends Controller
     }
 
       /**
-     * @OA\Put(
+     * @OA\Patch(
      *      path="/api/v1/publish-course/{id}",
      *      operationId="publishCourse",
      *      tags={"Courses"},
      *      summary="Publish a course",
-     *      description="Returns updated course data",
+     *      description="Returns no course data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
@@ -304,14 +446,36 @@ class CourseController extends Controller
      *              type="integer"
      *          )
      *      ),
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdateCourseRequest")
-     *      ),
+       *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=202,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Course")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Published Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -348,7 +512,7 @@ class CourseController extends Controller
      *      operationId="deleteCourse",
      *      tags={"Courses"},
      *      summary="Delete existing course",
-     *      description="Deletes a record and returns no success message",
+     *      description="Deletes a record and returns no data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
@@ -359,10 +523,36 @@ class CourseController extends Controller
      *              type="integer"
      *          )
      *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
      *      @OA\Response(
-     *          response=204,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent()
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Deleted Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=401,

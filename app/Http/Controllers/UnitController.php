@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Traits\BaseResponse;
-use App\Http\Requests\StorePageRequest;
+use App\Http\Requests\StoreUnitRequest;
+use App\Http\Requests\UpdateUnitRequest;
 use Illuminate\Http\Request;
-use App\Services\PageService;
+use App\Services\UnitService;
 
-class PageController extends Controller
+class UnitController extends Controller
 {
     use BaseResponse;
 
-    public $pageService;
+    public $unitService;
 
-    public function __construct(PageService $pageService)
+    public function __construct(UnitService $unitService)
     {
-        $this->pageService = $pageService; 
+        $this->unitService = $unitService; 
     }
 
       /**
      * @OA\Get(
-     *      path="/api/v1/pages",
-     *      operationId="getPagesList",
-     *      tags={"Pages"},
-     *      summary="Get list of module pages",
-     *      description="Returns list of module pages",
+     *      path="/api/v1/units",
+     *      operationId="getUnitsList",
+     *      tags={"Units"},
+     *      summary="Get list of department units",
+     *      description="Returns list of department units",
      *      security={ {"bearer": {} }},
     *     @OA\Parameter(
      *         name="bearer_token",
@@ -43,7 +44,7 @@ class PageController extends Controller
      *                  property="message",
      *                  type="string",
      *                  description="message",
-     *                  example="Pages Retrieved Successfully"
+     *                  example="units Retrieved Successfully"
      *             ),
      *              @OA\Property(
      *                  property="success",
@@ -54,7 +55,7 @@ class PageController extends Controller
      *             @OA\Property(
      *              property="data",
      *              type="array",
-     *               @OA\Items(ref="#/components/schemas/Page")
+     *               @OA\Items(ref="#/components/schemas/Unit")
      *              )
      *          )
      *       ),
@@ -71,24 +72,24 @@ class PageController extends Controller
 
     public function index()
     {
-        $pages = $this->pageService->all();
-        if(!count($pages) > 0){
-            return $this->sendResponse($pages, 'Record is Empty.'); 
+        $units = $this->unitService->all();
+        if(!count($units) > 0){
+            return $this->sendResponse($units, 'Record is Empty.'); 
         }
-        return $this->sendResponse($pages, 'Record retrieved successfully.');
+        return $this->sendResponse($units, 'Record retrieved successfully.');
     }
 
      /**
      * @OA\Post(
-     *      path="/api/v1/pages",
-     *      operationId="storePage",
-     *      tags={"Pages"},
-     *      summary="Store new course module page",
-     *      description="Returns course module page data",
+     *      path="/api/v1/units",
+     *      operationId="storeUnit",
+     *      tags={"Units"},
+     *      summary="Store new department unit",
+     *      description="Returns department unit data",
      *      security={ {"bearer": {} }},
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/StorePageRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/StoreUnitRequest")
      *      ),
      *     @OA\Parameter(
      *         name="bearer_token",
@@ -107,7 +108,7 @@ class PageController extends Controller
      *                  property="message",
      *                  type="string",
      *                  description="message",
-     *                  example="Page created successfully"
+     *                  example="Unit created successfully"
      *             ),
      *              @OA\Property(
      *                  property="success",
@@ -117,7 +118,7 @@ class PageController extends Controller
      *             ),
      *             @OA\Property(
      *              property="data",
-     *              ref="#/components/schemas/Page"
+     *              ref="#/components/schemas/Unit"
      *              )
      *          )
      *       ),
@@ -136,26 +137,26 @@ class PageController extends Controller
      * )
      */
 
-    public function save(StorePageRequest $request)
+    public function save(StoreUnitRequest $request)
     {
         
-        $page = $this->pageService->store($request->all());
+        $unit = $this->unitService->store($request->all());
         
-        return $this->sendResponse($page, 'Page Created Successfully.', 201);
+        return $this->sendResponse($unit, 'Unit Created Successfully.', 201);
         
     }
 
     /**
      * @OA\Get(
-     *      path="/api/v1/pages/{id}",
-     *      operationId="getPageById",
-     *      tags={"Pages"},
-     *      summary="Get Module Page information",
-     *      description="Returns module page data",
+     *      path="/api/v1/units/{id}",
+     *      operationId="getUnitById",
+     *      tags={"Units"},
+     *      summary="Get department unit information",
+     *      description="Returns department unit data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Page id",
+     *          description="Unit id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -179,7 +180,7 @@ class PageController extends Controller
      *                  property="message",
      *                  type="string",
      *                  description="message",
-     *                  example="Page Retrieved Successfully"
+     *                  example="Unit Retrieved Successfully"
      *             ),
      *              @OA\Property(
      *                  property="success",
@@ -189,7 +190,7 @@ class PageController extends Controller
      *             ),
      *             @OA\Property(
      *              property="data",
-     *               ref="#/components/schemas/Page"
+     *               ref="#/components/schemas/Unit"
      *              )
      *          )
      *       ),
@@ -210,24 +211,24 @@ class PageController extends Controller
 
     public function edit($id)
     {
-        $page = $this->pageService->find($id);
-        if(!$page){
-            return $this->sendError('Page not Found.', [], 404); 
+        $unit = $this->unitService->find($id);
+        if(!$unit){
+            return $this->sendError('Unit not Found.', [], 404); 
         }
-        return $this->sendResponse($page,'Page retrieved Successfully.');
+        return $this->sendResponse($unit,'Unit retrieved Successfully.');
     }
 
      /**
      * @OA\Put(
-     *      path="/api/v1/pages/{id}",
-     *      operationId="updatePage",
-     *      tags={"Pages"},
-     *      summary="Update existing module page",
-     *      description="Returns updated module page data",
+     *      path="/api/v1/units/{id}",
+     *      operationId="updateUnit",
+     *      tags={"Units"},
+     *      summary="Update existing department unit",
+     *      description="Returns updated department unit data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Page id",
+     *          description="Unit id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -236,7 +237,7 @@ class PageController extends Controller
      *      ),
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdatePageRequest")
+     *          @OA\JsonContent(ref="#/components/schemas/UpdateUnitRequest")
      *      ),
      *     @OA\Parameter(
      *         name="bearer_token",
@@ -265,7 +266,7 @@ class PageController extends Controller
      *             ),
      *             @OA\Property(
      *              property="data",
-     *               ref="#/components/schemas/Page"
+     *               ref="#/components/schemas/Unit"
      *              )
      *          )
      *       ),
@@ -288,26 +289,26 @@ class PageController extends Controller
      * )
      */
 
-    public function update(Request $request, $id)
+    public function update(UpdateUnitRequest $request, $id)
     {   
-        $page = $this->pageService->update($request->all(), $id);
-        if(!$page){
-            return $this->sendError('Page not Found.',[], 404); 
+        $unit = $this->unitService->update($request->all(), $id);
+        if(!$unit){
+            return $this->sendError('Unit not Found.',[], 404); 
         }
-        return $this->sendResponse($page,'Page Updated Successfully.');
+        return $this->sendResponse($unit,'Unit Updated Successfully.');
     }
 
       /**
      * @OA\Delete(
-     *      path="/api/v1/pages/{id}",
-     *      operationId="deletePage",
-     *      tags={"Pages"},
-     *      summary="Delete existing module page",
-     *      description="Deletes a record and returns no success message",
+     *      path="/api/v1/units/{id}",
+     *      operationId="deleteUnit",
+     *      tags={"Units"},
+     *      summary="Delete existing department unit",
+     *      description="Deletes a record and returns no data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Page id",
+     *          description="Unit id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(
@@ -331,7 +332,7 @@ class PageController extends Controller
      *                  property="message",
      *                  type="string",
      *                  description="message",
-     *                  example="Page Deleted Successfully"
+     *                  example="Unit Deleted Successfully"
      *             ),
      *              @OA\Property(
      *                  property="success",
@@ -361,10 +362,10 @@ class PageController extends Controller
      */
     public function delete($id)
     {
-        $page = $this->pageService->destroy($id);
-        if(!$page){
-            return $this->sendError('Page not Found.',[],404); 
+        $unit = $this->unitService->destroy($id);
+        if(!$unit){
+            return $this->sendError('Unit not Found.',[],404); 
         }
-        return $this->sendResponse($page,'Page Deleted successfully.');
+        return $this->sendResponse($unit,'Unit Deleted successfully.');
     }
 }

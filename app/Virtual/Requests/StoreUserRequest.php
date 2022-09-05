@@ -22,12 +22,23 @@ class StoreUserRequest {
      * @var string
      */
     public $name;
+    
+     /**
+     * @OA\Property(
+     *      title="Email",
+     *      description="Email address of the new user",
+     *      example="example@gmail.com"
+     * )
+     *
+     * @var string
+     */
+    public $email;
 
     /**
      * @OA\Property(
      *      title="Password",
      *      description="Password of the new user",
-     *      example="6464hh88"
+     *      example="12345678"
      * )
      *
      * @var string
@@ -76,33 +87,6 @@ class StoreUserRequest {
      * @var string
      */
     public $profile_image;
-
-    /**
-     * @OA\Property(
-     *     title="Created at",
-     *     description="Created at",
-     *     example="2020-01-27 17:50:45",
-     *     format="datetime",
-     *     type="string"
-     * )
-     *
-     * @var \DateTime
-     */
-    private $created_at;
-
-    /**
-     * @OA\Property(
-     *     title="Updated at",
-     *     description="Updated at",
-     *     example="2020-01-27 17:50:45",
-     *     format="datetime",
-     *     type="string"
-     * )
-     *
-     * @var \DateTime
-     */
-    private $updated_at;
-
 
      /**
      * @OA\Property(

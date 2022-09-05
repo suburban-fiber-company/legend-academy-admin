@@ -1,20 +1,31 @@
 <?php
 
-namespace App\Virtual\Models;
+namespace App\Virtual\Resources;
 
 /**
  * @OA\Schema(
- *     title="User",
- *     description="User model",
+ *     title="LoginResource",
+ *     description="Login resource",
  *     @OA\Xml(
- *         name="User"
+ *         name="LoginResource"
  *     )
  * )
  */
+class LoginResource{
 
-class User {
+    
+    /**
+     * @OA\Property(
+     *      title="token",
+     *      description="access token",
+     *      example="fjfjfjfjfuf74fjffhfhfhshgfaga"
+     * )
+     *
+     * @var string
+     */
+    public $token;
 
-     /**
+    /**
      * @OA\Property(
      *     title="ID",
      *     description="ID",
@@ -47,17 +58,6 @@ class User {
      * @var string
      */
     public $email;
-
-    /**
-     * @OA\Property(
-     *      title="Password",
-     *      description="Password of the new user",
-     *      example="12345678"
-     * )
-     *
-     * @var string
-     */
-    private $password;
 
     /**
      * @OA\Property(
@@ -102,8 +102,7 @@ class User {
      */
     public $profile_image;
 
-    
-     /**
+      /**
      * @OA\Property(
      *      title="Department ID",
      *      description="Department's id of the new user",

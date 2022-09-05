@@ -4,15 +4,15 @@ namespace App\Virtual\Models;
 
 /**
  * @OA\Schema(
- *     title="Module",
- *     description="Module model",
+ *     title="Unit",
+ *     description="Unit model",
  *     @OA\Xml(
- *         name="Module"
+ *         name="Unit Model"
  *     )
  * )
  */
 
-class Module {
+class Unit {
 
      /**
      * @OA\Property(
@@ -29,37 +29,27 @@ class Module {
     /**
      * @OA\Property(
      *      title="Name",
-     *      description="Title of the new course module",
-     *      example="Introduction to workpkace"
+     *      description="Name of the new department unit",
+     *      example="finance"
      * )
      *
      * @var string
      */
-    public $title;
+    public $name;
 
-     /**
+      /**
      * @OA\Property(
-     *      title="Course ID",
-     *      description="Course id of the new course module",
+     *      title="Department ID",
+     *      description="Department id of the new department",
      *      format="int64",
      *      example=1
      * )
      *
      * @var integer
      */
-    public $course_id;
-
+    public $department_id;   
+    
     /**
-     * @OA\Property(
-     *     title="Page",
-     *     description="Page model",
-     *      type="array",
-     *      @OA\Items(ref="#/components/schemas/Page")
-     * )
-     */
-    private $pages;
-
-       /**
      * @OA\Property(
      *     title="Created at",
      *     description="Created at",

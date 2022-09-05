@@ -21,13 +21,41 @@
                 "summary": "Get list of courses",
                 "description": "Returns list of courses",
                 "operationId": "getCoursesList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CourseResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Course"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -52,6 +80,16 @@
                 "summary": "Store new course",
                 "description": "Returns course data",
                 "operationId": "storeCourse",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -69,6 +107,11 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course created successfully"
+                                        },
                                         "success": {
                                             "description": "success",
                                             "type": "boolean",
@@ -108,13 +151,41 @@
                 "summary": "Get list of courses with modules",
                 "description": "Returns list of courses with modules",
                 "operationId": "Course Modules",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CourseModuleResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CourseModule"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -150,6 +221,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -158,7 +237,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Course"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Course"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -195,6 +289,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -208,12 +310,27 @@
                     }
                 },
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Course"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Course"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -242,7 +359,7 @@
                     "Courses"
                 ],
                 "summary": "Delete existing course",
-                "description": "Deletes a record and returns no success message",
+                "description": "Deletes a record and returns no data",
                 "operationId": "deleteCourse",
                 "parameters": [
                     {
@@ -253,14 +370,39 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -298,6 +440,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -306,7 +456,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Module"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Module Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Module"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -329,12 +494,12 @@
             }
         },
         "/api/v1/publish-course/{id}": {
-            "put": {
+            "patch": {
                 "tags": [
                     "Courses"
                 ],
                 "summary": "Publish a course",
-                "description": "Returns updated course data",
+                "description": "Returns no course data",
                 "operationId": "publishCourse",
                 "parameters": [
                     {
@@ -345,25 +510,38 @@
                         "schema": {
                             "type": "integer"
                         }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/UpdateCourseRequest"
-                            }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
-                },
+                ],
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Course"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Published Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -396,13 +574,41 @@
                 "summary": "Get list of department",
                 "description": "Returns list of departments",
                 "operationId": "getDepartmentsList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DepartmentResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Departments Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/DepartmentUnit"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -427,6 +633,16 @@
                 "summary": "Store new department",
                 "description": "Returns department data",
                 "operationId": "storeDepartment",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -443,7 +659,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Department"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Department created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Department"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -482,6 +713,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -490,7 +729,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Department"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Department Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/DepartmentUnit"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -527,6 +781,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -540,12 +802,27 @@
                     }
                 },
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Department"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Department Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Department"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -585,14 +862,39 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Department Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -621,13 +923,41 @@
                 "summary": "Get list of module",
                 "description": "Returns list of modules",
                 "operationId": "getModulesList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ModuleResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Modules Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Module"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -652,6 +982,16 @@
                 "summary": "Store new course module",
                 "description": "Returns course module data",
                 "operationId": "storeModule",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -668,7 +1008,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Module"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Module created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Module"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -707,6 +1062,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -715,7 +1078,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Module"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Module Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Module"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -752,6 +1130,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -765,12 +1151,27 @@
                     }
                 },
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Module"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Module Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Module"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -796,7 +1197,7 @@
             },
             "delete": {
                 "tags": [
-                    "Departments"
+                    "Modules"
                 ],
                 "summary": "Delete existing module",
                 "description": "Deletes a record and returns no success message",
@@ -810,14 +1211,39 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Module Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -846,13 +1272,41 @@
                 "summary": "Get list of module pages",
                 "description": "Returns list of module pages",
                 "operationId": "getPagesList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PageResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Pages Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Page"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -877,6 +1331,16 @@
                 "summary": "Store new course module page",
                 "description": "Returns course module page data",
                 "operationId": "storePage",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -893,7 +1357,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Page"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Page created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -932,6 +1411,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -940,7 +1427,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Page"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Page Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -977,6 +1479,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -990,12 +1500,27 @@
                     }
                 },
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Page"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Page Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Page"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1021,7 +1546,7 @@
             },
             "delete": {
                 "tags": [
-                    "Departments"
+                    "Pages"
                 ],
                 "summary": "Delete existing module page",
                 "description": "Deletes a record and returns no success message",
@@ -1035,14 +1560,39 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Page Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -1496,7 +2046,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Registration Successful"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1526,18 +2091,45 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StoreUserRequest"
+                                "properties": {
+                                    "email": {
+                                        "description": "email",
+                                        "type": "string",
+                                        "example": "example@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "email",
+                                        "type": "string",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Login Successful"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/LoginResource"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1554,6 +2146,355 @@
                 }
             }
         },
+        "/api/v1/units": {
+            "get": {
+                "tags": [
+                    "Units"
+                ],
+                "summary": "Get list of department units",
+                "description": "Returns list of department units",
+                "operationId": "getUnitsList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "units Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Unit"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Units"
+                ],
+                "summary": "Store new department unit",
+                "description": "Returns department unit data",
+                "operationId": "storeUnit",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreUnitRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Unit created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Unit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/units/{id}": {
+            "get": {
+                "tags": [
+                    "Units"
+                ],
+                "summary": "Get department unit information",
+                "description": "Returns department unit data",
+                "operationId": "getUnitById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unit id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Unit Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Unit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Units"
+                ],
+                "summary": "Update existing department unit",
+                "description": "Returns updated department unit data",
+                "operationId": "updateUnit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unit id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUnitRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Page Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Unit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Units"
+                ],
+                "summary": "Delete existing department unit",
+                "description": "Deletes a record and returns no data",
+                "operationId": "deleteUnit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unit id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Unit Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -1562,13 +2503,41 @@
                 "summary": "Get list of users",
                 "description": "Returns list of users",
                 "operationId": "getUserList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UserResource"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Users Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/User"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1593,6 +2562,16 @@
                 "summary": "Store new user",
                 "description": "Returns user data",
                 "operationId": "storeUser",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1609,7 +2588,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "User created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1637,7 +2631,7 @@
                     "Users"
                 ],
                 "summary": "Get User information",
-                "description": "Returns project data",
+                "description": "Returns user data",
                 "operationId": "getUserById",
                 "parameters": [
                     {
@@ -1648,6 +2642,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1656,7 +2658,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "User Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1693,6 +2710,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -1706,12 +2731,27 @@
                     }
                 },
                 "responses": {
-                    "202": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "User Updated Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1751,14 +2791,39 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "User Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
                             }
                         }
                     },
@@ -1796,6 +2861,14 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -1804,7 +2877,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "User Course Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserCourse"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -1860,20 +2948,6 @@
                         "format": "int64",
                         "example": 1
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
                     "user_id": {
                         "title": "User ID",
                         "description": "User's id of the new course",
@@ -1888,12 +2962,33 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "unit_id": {
+                        "title": "Unit ID",
+                        "description": "Department unit ID of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "status": {
                         "title": "Status",
                         "description": "Status of the new course",
                         "type": "integer",
                         "format": "int64",
-                        "example": 0
+                        "example": "Published"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
                     }
                 },
                 "type": "object",
@@ -1932,20 +3027,6 @@
                         "format": "int64",
                         "example": 1
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
                     "user_id": {
                         "title": "User ID",
                         "description": "User's id of the new course",
@@ -1960,12 +3041,19 @@
                         "format": "int64",
                         "example": 1
                     },
+                    "unit_id": {
+                        "title": "Unit ID",
+                        "description": "Department unit ID of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "status": {
                         "title": "Status",
                         "description": "Status of the new course",
                         "type": "integer",
                         "format": "int64",
-                        "example": 0
+                        "example": "Published"
                     },
                     "modules": {
                         "title": "Module",
@@ -1974,6 +3062,20 @@
                         "items": {
                             "$ref": "#/components/schemas/Module"
                         }
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
                     }
                 },
                 "type": "object",
@@ -1997,11 +3099,70 @@
                         "description": "Name of the department course",
                         "type": "string",
                         "example": "Software"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
                     }
                 },
                 "type": "object",
                 "xml": {
                     "name": "Depertment"
+                }
+            },
+            "DepartmentUnit": {
+                "title": "DepartmentUnit",
+                "description": "DepartmentUnit model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the department course",
+                        "type": "string",
+                        "example": "Software"
+                    },
+                    "units": {
+                        "title": "Unit",
+                        "description": "Unit model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Unit"
+                        }
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Depertment unit"
                 }
             },
             "Module": {
@@ -2021,20 +3182,6 @@
                         "type": "string",
                         "example": "Introduction to workpkace"
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
                     "course_id": {
                         "title": "Course ID",
                         "description": "Course id of the new course module",
@@ -2049,6 +3196,20 @@
                         "items": {
                             "$ref": "#/components/schemas/Page"
                         }
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
                     }
                 },
                 "type": "object",
@@ -2130,20 +3291,6 @@
                         "type": "string",
                         "example": "What is Laravel"
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
                     "course_id": {
                         "title": "Course ID",
                         "description": "Course id of the new question",
@@ -2172,6 +3319,20 @@
                         "items": {
                             "$ref": "#/components/schemas/QuestionOption"
                         }
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
                     }
                 },
                 "type": "object",
@@ -2230,6 +3391,50 @@
                     "name": "Question"
                 }
             },
+            "Unit": {
+                "title": "Unit",
+                "description": "Unit model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new department unit",
+                        "type": "string",
+                        "example": "finance"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department id of the new department",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Unit Model"
+                }
+            },
             "User": {
                 "title": "User",
                 "description": "User model",
@@ -2246,6 +3451,91 @@
                         "description": "Full Name of the new user",
                         "type": "string",
                         "example": "Jame Prince"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email address of the new user",
+                        "type": "string",
+                        "example": "example@gmail.com"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "Password of the new user",
+                        "type": "string",
+                        "example": "12345678"
+                    },
+                    "phone_number": {
+                        "title": "Phone Number",
+                        "description": "Phone of the new User",
+                        "type": "string",
+                        "example": "0816155633"
+                    },
+                    "address": {
+                        "title": "Address",
+                        "description": "Address of the new user",
+                        "type": "string",
+                        "example": "25 uloho street"
+                    },
+                    "user_type": {
+                        "title": "User Type",
+                        "description": "User Type of the new user",
+                        "type": "string",
+                        "example": "User"
+                    },
+                    "profile_image": {
+                        "title": "Profile Image",
+                        "description": "Profile Image of the new user",
+                        "type": "string"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department's id of the new user",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
+            "UserCourse": {
+                "title": "UserCourse",
+                "description": "User course model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Full Name of the new user",
+                        "type": "string",
+                        "example": "Jame Prince"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email address of the new user",
+                        "type": "string",
+                        "example": "james@gmail.com"
                     },
                     "password": {
                         "title": "Password",
@@ -2308,7 +3598,7 @@
                 },
                 "type": "object",
                 "xml": {
-                    "name": "User"
+                    "name": "UserCourse"
                 }
             },
             "StoreCourseRequest": {
@@ -2334,6 +3624,13 @@
                     "department_id": {
                         "title": "Department ID",
                         "description": "Department's id of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "unit_id": {
+                        "title": "Unit ID",
+                        "description": "Department unit ID of the new course",
                         "type": "integer",
                         "format": "int64",
                         "example": 1
@@ -2472,6 +3769,26 @@
                 },
                 "type": "object"
             },
+            "StoreUnitRequest": {
+                "title": "Store department unit request",
+                "description": "Store department unit request body data",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new department unit",
+                        "type": "string",
+                        "example": "finance"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department id of the new department unit",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "StoreUserRequest": {
                 "title": "Store User request",
                 "description": "Store User request body data",
@@ -2485,11 +3802,17 @@
                         "type": "string",
                         "example": "Jame Prince"
                     },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email address of the new user",
+                        "type": "string",
+                        "example": "example@gmail.com"
+                    },
                     "password": {
                         "title": "Password",
                         "description": "Password of the new user",
                         "type": "string",
-                        "example": "6464hh88"
+                        "example": "12345678"
                     },
                     "phone_number": {
                         "title": "Phone Number",
@@ -2513,20 +3836,6 @@
                         "title": "Profile Image",
                         "description": "Profile Image of the new user",
                         "type": "string"
-                    },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
                     },
                     "department_id": {
                         "title": "Department ID",
@@ -2558,6 +3867,13 @@
                     "department_id": {
                         "title": "Department ID",
                         "description": "Department's id of the new course",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "unit_id": {
+                        "title": "Unit ID",
+                        "description": "Department unit ID of the new course",
                         "type": "integer",
                         "format": "int64",
                         "example": 1
@@ -2688,6 +4004,26 @@
                 },
                 "type": "object"
             },
+            "UpdateUnitRequest": {
+                "title": "Update department unit request",
+                "description": "updatedepartment unit request body data",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the new department unit",
+                        "type": "string",
+                        "example": "finance"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department id of the new department unit",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "UpdateUserRequest": {
                 "title": "Store User request",
                 "description": "Store User request body data",
@@ -2700,6 +4036,12 @@
                         "description": "Full Name of the new user",
                         "type": "string",
                         "example": "Jame Prince"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email address of the new user",
+                        "type": "string",
+                        "example": "james@gmail.com"
                     },
                     "password": {
                         "title": "Password",
@@ -2730,20 +4072,6 @@
                         "description": "Profile Image of the new user",
                         "type": "string"
                     },
-                    "created_at": {
-                        "title": "Created at",
-                        "description": "Created at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
-                    "updated_at": {
-                        "title": "Updated at",
-                        "description": "Updated at",
-                        "type": "string",
-                        "format": "datetime",
-                        "example": "2020-01-27 17:50:45"
-                    },
                     "department_id": {
                         "title": "Department ID",
                         "description": "Department's id of the new user",
@@ -2758,12 +4086,6 @@
                 "title": "CourseResource",
                 "description": "Course resource",
                 "properties": {
-                    "success": {
-                        "title": "Success",
-                        "description": "success",
-                        "type": "boolean",
-                        "example": true
-                    },
                     "data": {
                         "title": "Data",
                         "description": "Data wrapper",
@@ -2782,12 +4104,6 @@
                 "title": "CourseResource",
                 "description": "Course resource",
                 "properties": {
-                    "success": {
-                        "title": "Success",
-                        "description": "success",
-                        "type": "boolean",
-                        "example": true
-                    },
                     "data": {
                         "title": "Data",
                         "description": "Data wrapper",
@@ -2803,15 +4119,9 @@
                 }
             },
             "DepartmentResource": {
-                "title": "CourseResource",
-                "description": "Course resource",
+                "title": "DepartmentResource",
+                "description": "Department resource",
                 "properties": {
-                    "success": {
-                        "title": "Success",
-                        "description": "success",
-                        "type": "boolean",
-                        "example": true
-                    },
                     "data": {
                         "title": "Data",
                         "description": "Data wrapper",
@@ -2823,7 +4133,86 @@
                 },
                 "type": "object",
                 "xml": {
-                    "name": "CourseResource"
+                    "name": "DepartmentResource"
+                }
+            },
+            "LoginResource": {
+                "title": "LoginResource",
+                "description": "Login resource",
+                "properties": {
+                    "token": {
+                        "title": "token",
+                        "description": "access token",
+                        "type": "string",
+                        "example": "fjfjfjfjfuf74fjffhfhfhshgfaga"
+                    },
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Full Name of the new user",
+                        "type": "string",
+                        "example": "Jame Prince"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email address of the new user",
+                        "type": "string",
+                        "example": "example@gmail.com"
+                    },
+                    "phone_number": {
+                        "title": "Phone Number",
+                        "description": "Phone of the new User",
+                        "type": "string",
+                        "example": "0816155633"
+                    },
+                    "address": {
+                        "title": "Address",
+                        "description": "Address of the new user",
+                        "type": "string",
+                        "example": "25 uloho street"
+                    },
+                    "user_type": {
+                        "title": "User Type",
+                        "description": "User Type of the new user",
+                        "type": "string",
+                        "example": "User"
+                    },
+                    "profile_image": {
+                        "title": "Profile Image",
+                        "description": "Profile Image of the new user",
+                        "type": "string"
+                    },
+                    "department_id": {
+                        "title": "Department ID",
+                        "description": "Department's id of the new user",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LoginResource"
                 }
             },
             "ModulePageResource": {
@@ -2851,15 +4240,9 @@
                 }
             },
             "ModuleResource": {
-                "title": "CourseResource",
-                "description": "Course resource",
+                "title": "ModuleResource",
+                "description": "Module resource",
                 "properties": {
-                    "success": {
-                        "title": "Success",
-                        "description": "success",
-                        "type": "boolean",
-                        "example": true
-                    },
                     "data": {
                         "title": "Data",
                         "description": "Data wrapper",
@@ -2871,7 +4254,7 @@
                 },
                 "type": "object",
                 "xml": {
-                    "name": "CourseResource"
+                    "name": "ModuleResource"
                 }
             },
             "PageResource": {
@@ -2939,6 +4322,30 @@
                 "type": "object",
                 "xml": {
                     "name": "QuestionResource"
+                }
+            },
+            "UserCourseResource": {
+                "title": "UserCourseResource",
+                "description": "UserCourse resource",
+                "properties": {
+                    "success": {
+                        "title": "Success",
+                        "description": "success",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserCourseResource"
                 }
             },
             "UserResource": {

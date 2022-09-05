@@ -2,34 +2,32 @@
 
 namespace App\Services;
 
-use App\Models\Department;
-use App\Http\Resources\DepartmentResourse;
+use App\Models\Unit;
+use App\Http\Resources\UnitResource;
 use App\Traits\BaseResponse;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use DB;
 
 
-class DepartmentService
+class UnitService
 {
     use BaseResponse;
 
     public function all()
     {
-        $data = Department::orderBy('name','ASC')->get();
-        return DepartmentResourse::collection($data);
+        $units = Unit::orderBy('id','DESC')->get();
+        return UnitResource::collection($units);
         
     }
 
-
-    public function store($department)
+    public function store($unit)
     {   
         try{
-            $data = Department::create($department);
+           
+            $data = Unit::create($unit);
 
-            return new DepartmentResourse($data);
+            return new UnitResource($data);
 
         } catch (\Exception $e) {
-            DB::rollBack();
             throw new HttpResponseException(
                 $this->sendError('An Error Occured', ['error'=>$e->getMessage()],500)
             );
@@ -39,13 +37,13 @@ class DepartmentService
     public function update($data, $id)
     {   
         try{
-            $department = Department::find($id);
-            if (is_null($department)) {
+            $unit = Unit::find($id);
+            if (is_null($unit)) {
                 return false;
             }
-            $department->update($data);
+            $unit->update($data);
 
-            return new DepartmentResourse($department);
+            return new UnitResource($unit);
 
         } catch (\Exception $e) {
             
@@ -57,22 +55,22 @@ class DepartmentService
 
     public function find($id)
     {
-        $data = Department::find($id);
-        if (is_null($data)) {
+        $unit = Unit::find($id);
+        if (is_null($unit)) {
             return false;
         }
         
-        return new DepartmentResourse($data);
+        return new UnitResource($unit);
     }
 
     public function destroy($id)
     {
-        $data = Department::find($id);
-        if (is_null($data)) {
+        $unit = Unit::find($id);
+        if (is_null($unit)) {
             return false;
         }
-        $data = $data->delete();
-        return $data;
+        $unit = $unit->delete();
+        return $unit;
         
     }
 }

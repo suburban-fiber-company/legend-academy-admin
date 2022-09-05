@@ -30,7 +30,25 @@ class RegisterController extends Controller
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Registration Successful"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/User"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -54,9 +72,7 @@ class RegisterController extends Controller
             $data['password'] = Hash::make($request->password);
             $user = User::create($data);
 
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-
-            return $this->sendResponse($success, 'Registration successfully.');
+            return $this->sendResponse($user->toArray(), 'Registration successfully.');
         } catch (\Exception $e) {
             throw new HttpResponseException(
                 $this->sendError('An Error Occured', ['error' => $e->getMessage()], 500)
@@ -79,12 +95,44 @@ class RegisterController extends Controller
      *      description="Returns user data",
      *      @OA\RequestBody(
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/StoreUserRequest")
+    *          @OA\JsonContent(
+     *             type="object",
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  description="email",
+     *                  example="example@gmail.com"
+     *             ),
+     *              @OA\Property(
+     *                  property="password",
+     *                  type="string",
+     *                  description="email",
+     *                  example="12345678"
+     *             ),
+     *          )
      *      ),
      *      @OA\Response(
-     *          response=201,
+     *          response=200,
      *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/User")
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Login Successful"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *              ref="#/components/schemas/LoginResource"
+     *              )
+     *          )
      *       ),
      *      @OA\Response(
      *          response=400,
@@ -106,10 +154,12 @@ class RegisterController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            $success['user'] =  $user->toArray();
+            $token['token'] =  $user->createToken('MyApp')->accessToken;
+            $user = $user->toArray();
+            $data = array_merge($token, $user);
+            
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($data, 'User login successfully.');
         } else {
             return $this->sendError('Unauthorised.', ['error' => 'incorrect email/password'], 401);
         }

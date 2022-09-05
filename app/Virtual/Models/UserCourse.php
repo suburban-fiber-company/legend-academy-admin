@@ -4,15 +4,15 @@ namespace App\Virtual\Models;
 
 /**
  * @OA\Schema(
- *     title="User",
- *     description="User model",
+ *     title="UserCourse",
+ *     description="User course model",
  *     @OA\Xml(
- *         name="User"
+ *         name="UserCourse"
  *     )
  * )
  */
 
-class User {
+class UserCourse {
 
      /**
      * @OA\Property(
@@ -36,23 +36,23 @@ class User {
      * @var string
      */
     public $name;
-
+    
      /**
      * @OA\Property(
      *      title="Email",
      *      description="Email address of the new user",
-     *      example="example@gmail.com"
+     *      example="james@gmail.com"
      * )
      *
      * @var string
      */
     public $email;
-
+    
     /**
      * @OA\Property(
      *      title="Password",
      *      description="Password of the new user",
-     *      example="12345678"
+     *      example="6464hh88"
      * )
      *
      * @var string
@@ -102,19 +102,6 @@ class User {
      */
     public $profile_image;
 
-    
-     /**
-     * @OA\Property(
-     *      title="Department ID",
-     *      description="Department's id of the new user",
-     *      format="int64",
-     *      example=1
-     * )
-     *
-     * @var integer
-     */
-    public $department_id;
-
     /**
      * @OA\Property(
      *     title="Created at",
@@ -140,5 +127,28 @@ class User {
      * @var \DateTime
      */
     private $updated_at;
+
+
+     /**
+     * @OA\Property(
+     *      title="Department ID",
+     *      description="Department's id of the new user",
+     *      format="int64",
+     *      example=1
+     * )
+     *
+     * @var integer
+     */
+    public $department_id;
+
+    /**
+     * @OA\Property(
+     *     title="Course",
+     *     description="Course model",
+     *      type="array",
+     *      @OA\Items(ref="#/components/schemas/Course")
+     * )
+     */
+    private $courses;
 
 }

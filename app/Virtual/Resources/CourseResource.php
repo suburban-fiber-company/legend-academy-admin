@@ -13,18 +13,6 @@ namespace App\Virtual\Resources;
  */
 class CourseResource{
 
-      /**
-     * @OA\Property(
-     *      title="Success",
-     *      description="success",
-     *      example=True
-     * )
-     *
-     * @var boolean
-     */
-
-    private $success;
-
      /**
      * @OA\Property(
      *     title="Data",

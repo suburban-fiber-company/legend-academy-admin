@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionsOptionsController;
 use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::post('/v1/courses', 'save');
         Route::get('/v1/courses/{id}', 'edit');
         Route::put('/v1/courses/{id}', 'update');
-        Route::put('/v1/publish-course/{id}', 'publish');
+        Route::patch('/v1/publish-course/{id}', 'publish');
         Route::delete('/v1/courses/{id}', 'delete');
         Route::get('/v1/courses-modules', 'courseModule');
         Route::get('/v1/courses/{id}/modules', 'findCourseModule');
@@ -61,6 +62,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/v1/departments/{id}', 'edit');
         Route::put('/v1/departments/{id}', 'update');
         Route::delete('/v1/departments/{id}', 'delete');
+    });
+
+    Route::controller(UnitController::class)->group(function () {
+        Route::get('/v1/units', 'index');
+        Route::post('/v1/units', 'save');
+        Route::get('/v1/units/{id}', 'edit');
+        Route::put('/v1/units/{id}', 'update');
+        Route::delete('/v1/units/{id}', 'delete');
     });
 
     Route::controller(UserController::class)->group(function () {
