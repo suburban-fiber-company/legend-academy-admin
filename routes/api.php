@@ -100,7 +100,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::controller(ResultsController::class)->group(function () {
         Route::get('/v1/results', 'index');
-        Route::post('/v1/results', 'store');
+        Route::post('/v1/results', 'save');
         Route::get('/v1/results/{id}', 'show');
     });
 

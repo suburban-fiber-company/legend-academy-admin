@@ -6,6 +6,7 @@ use App\Http\Requests\StoreResultRequest;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\Result;
+use App\Models\Module;
 use App\Http\Resources\ResultResource;
 use App\Model\User;
 use App\Models\UserOption;
@@ -46,29 +47,53 @@ class ResultsController extends Controller
 
     public function save(Request $request)
     {
-        $score =0;
-        $questionCount = 0;
-        $questions = $request->all();
-        foreach($questions as $question) {
-            $option = QuestionOption::find($question['selected_option_id']);
-            
-            if($option->correct ==1) {
-                $score++;
+        try {
+            DB::beginTransaction();
+
+            $score = 0;
+            $questionCount = 0;
+            $questions = $request->questions;
+            foreach ($questions as $question) {
+                $option = QuestionOption::find($question['selected_option_id']);
+
+                if ($option->correct == 1) {
+                    $score++;
+                }
+                $questionCount++;
             }
-            $questionCount++;
+            $module = Module::find($request->module_id);
+            $data = [
+                'user_id' => 1,
+                'module_id'  => $request->module_id,
+                'course_id' => $module->course_id,
+                'correct_answers' => $score,
+                'questions_count' => $questionCount,
+            ];
+
+            $result = Result::create($data);
+
+            foreach ($questions as $question) {
+                $data = [
+                    'user_id' =>  $result->user_id,
+                    'result_id' => $result->id,
+                    'question_id' => $question['question_id'],
+                    'course_id' => $module->course_id,
+                    'module_id' => $request->module_id,
+                    'option_id' => $question['selected_option_id'],
+
+                ];
+                UserOption::create($data);
+            }
+            DB::commit();
+
+            $result = Result::find($result->id);
+            return $this->sendResponse(new ResultResource($result), 'Result Saved Successfully.', 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw new HttpResponseException(
+                $this->sendError('An Error Occured', ['error' => $e->getMessage()], 500)
+            );
         }
-        $module = Module::find($request->module_id);
-        $data = [
-            'user_id' => Auth::user()->id,
-            'module_id'  => $request->module_id,
-            'course_id' => $module->course_id,
-            'correct_answer' => $score,
-            'questions_count' => $questionCount,
-        ];
-
-        $result = Result::create($data);
-        return $this->sendResponse($result->toArray(), 'Result Saved Successfully.');
-
     }
 
     /**
@@ -122,8 +147,7 @@ class ResultsController extends Controller
             }
             DB::commit();
             $result = Result::find($result->id);
-            return $this->sendResponse(new ResultResource($result), 'Result Saved Successfully.',201);
-
+            return $this->sendResponse(new ResultResource($result), 'Result Saved Successfully.', 201);
         } catch (\Exception $e) {
             DB::rollBack();
             throw new HttpResponseException(

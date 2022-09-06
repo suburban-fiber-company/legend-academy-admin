@@ -29,6 +29,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number to fetch the data",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Page size",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -49,10 +67,7 @@
                                             "example": true
                                         },
                                         "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Course"
-                                            }
+                                            "$ref": "#/components/schemas/CourseModuleResource"
                                         }
                                     },
                                     "type": "object"
@@ -87,15 +102,6 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "page",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
                         }
                     }
                 ],
@@ -4092,9 +4098,16 @@
                 "type": "object"
             },
             "CourseModuleResource": {
-                "title": "CourseResource",
+                "title": "CourseModuleResource",
                 "description": "Course resource",
                 "properties": {
+                    "current_page": {
+                        "title": "current_page",
+                        "description": "current page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
                     "data": {
                         "title": "Data",
                         "description": "Data wrapper",
@@ -4102,6 +4115,71 @@
                         "items": {
                             "$ref": "#/components/schemas/CourseModule"
                         }
+                    },
+                    "first_page_url": {
+                        "title": "First Page Url",
+                        "description": "First Page Url",
+                        "type": "string",
+                        "example": "http://legend.test/api/v1/courses?page=1"
+                    },
+                    "from": {
+                        "title": "from",
+                        "description": "from",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "last_page": {
+                        "title": "last page",
+                        "description": "last page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "last_page_url": {
+                        "title": "Last Page Url",
+                        "description": "Last Page Url",
+                        "type": "string",
+                        "example": "http://legend.test/api/v1/courses?page=1"
+                    },
+                    "next_page_url": {
+                        "title": "Next Page Url",
+                        "description": "Next Page Url",
+                        "type": "string",
+                        "example": null
+                    },
+                    "path": {
+                        "title": "path",
+                        "description": "path",
+                        "type": "string",
+                        "example": "http://legend.test/api/v1/courses"
+                    },
+                    "per_page": {
+                        "title": "Per Page",
+                        "description": "Per Page",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 10
+                    },
+                    "prev_page_url": {
+                        "title": "prev page url",
+                        "description": "prev page url",
+                        "type": "string",
+                        "example": null
+                    },
+                    "to": {
+                        "title": "To",
+                        "description": "to",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 2
+                    },
+                    "total": {
+                        "title": "Total",
+                        "description": "Total",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 10
                     }
                 },
                 "type": "object",

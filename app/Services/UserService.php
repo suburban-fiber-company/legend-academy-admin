@@ -131,6 +131,8 @@ class UserService
             }
 
             $courses[$index]['modules'] = $modules;
+            $data = UserCourse::where('course_id',$course['id'])->where('user_id', $user->id)->first();
+            $courses[$index]['overall_progress'] = $data->percentage_progress;
             
         }
 

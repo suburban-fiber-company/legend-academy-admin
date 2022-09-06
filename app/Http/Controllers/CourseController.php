@@ -35,6 +35,24 @@ class CourseController extends Controller
      *             type="string"
      *         )
      *     ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          description="Page number to fetch the data",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+      *      @OA\Parameter(
+     *          name="pageSize",
+     *          description="Page size",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -53,9 +71,9 @@ class CourseController extends Controller
      *                  example=True
      *             ),
      *             @OA\Property(
-     *              property="data",
-     *              type="array",
-     *               @OA\Items(ref="#/components/schemas/Course")
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/CourseModuleResource"
      *              )
      *          )
      *       ),
@@ -159,15 +177,6 @@ class CourseController extends Controller
      *             type="string"
      *         )
      *     ),
-     *      @OA\Parameter(
-     *          name="page",
-     *          description="Page number to fetch the data",
-     *          required=false,
-     *          in="query",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",

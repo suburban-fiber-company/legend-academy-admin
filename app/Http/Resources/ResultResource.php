@@ -21,6 +21,9 @@ class ResultResource extends JsonResource
             'module_id' => $this->module_id,
             'correct_answers' => $this->correct_answers,
             'questions_count'=> $this->questions_count,
+            'user_options'=> $this->options->toArray(),
+            'created_at' => $this->created_at,
+            'updated_at'=> $this->updated_at,
         ];
     }
 }
