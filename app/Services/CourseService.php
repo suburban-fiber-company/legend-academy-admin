@@ -16,8 +16,10 @@ class CourseService
 
     public function all()
     {
-        $courses = Course::orderBy('name','ASC')->simplePaginate(10);
-        return CourseResource::collection($courses);
+        $courses = Course::with('modules.pages')->paginate(10);
+
+        return $courses;
+        //return CourseResource::collection($courses);
         
     }
 
@@ -48,7 +50,9 @@ class CourseService
             
             DB::commit();
 
-            return new CourseResource($course);
+            $data = Course::find($course->id);
+
+            return new CourseModuleResource($data);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -85,7 +89,7 @@ class CourseService
             return false;
         }
         
-        return new CourseResource($course);
+        return new CourseModuleResource($course);
     }
 
     public function findCourseModule($id)

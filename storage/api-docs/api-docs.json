@@ -241,7 +241,7 @@
                                         "message": {
                                             "description": "message",
                                             "type": "string",
-                                            "example": "Course Retrieved Successfully"
+                                            "example": "Course  Retrieved Successfully"
                                         },
                                         "success": {
                                             "description": "success",
@@ -249,7 +249,7 @@
                                             "example": true
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Course"
+                                            "$ref": "#/components/schemas/CourseModule"
                                         }
                                     },
                                     "type": "object"

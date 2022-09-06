@@ -205,7 +205,7 @@ class CourseController extends Controller
         
     }
 
-    /**
+     /**
      * @OA\Get(
      *      path="/api/v1/courses/{id}",
      *      operationId="getCourseById",
@@ -239,7 +239,7 @@ class CourseController extends Controller
      *                  property="message",
      *                  type="string",
      *                  description="message",
-     *                  example="Course Retrieved Successfully"
+     *                  example="Course  Retrieved Successfully"
      *             ),
      *              @OA\Property(
      *                  property="success",
@@ -249,7 +249,7 @@ class CourseController extends Controller
      *             ),
      *             @OA\Property(
      *              property="data",
-     *               ref="#/components/schemas/Course"
+     *              ref="#/components/schemas/CourseModule"
      *              )
      *          )
      *       ),

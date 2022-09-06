@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreResultRequest;
 use App\Models\Question;
+use App\Models\QuestionOption;
 use App\Models\Result;
 use App\Http\Resources\ResultResource;
 use App\Model\User;
 use App\Models\UserOption;
-use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\BaseResponse;
@@ -42,6 +42,33 @@ class ResultsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function save(Request $request)
+    {
+        $score =0;
+        $questionCount = 0;
+        $questions = $request->all();
+        foreach($questions as $question) {
+            $option = QuestionOption::find($question['selected_option_id']);
+            
+            if($option->correct ==1) {
+                $score++;
+            }
+            $questionCount++;
+        }
+        $module = Module::find($request->module_id);
+        $data = [
+            'user_id' => Auth::user()->id,
+            'module_id'  => $request->module_id,
+            'course_id' => $module->course_id,
+            'correct_answer' => $score,
+            'questions_count' => $questionCount,
+        ];
+
+        $result = Result::create($data);
+        return $this->sendResponse($result->toArray(), 'Result Saved Successfully.');
+
     }
 
     /**
