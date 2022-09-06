@@ -70,9 +70,10 @@ class CourseController extends Controller
      *     )
      */
 
-    public function index()
-    {
-        $courses = $this->courseService->all();
+    public function index(Request $request)
+    {   
+        $pageSize = $request->has('pageSize') ? $request->pageSize : 10;
+        $courses = $this->courseService->all($pageSize);
         if(!count($courses) > 0){
             return $this->sendResponse($courses, 'Record is Empty.'); 
         }
@@ -158,6 +159,15 @@ class CourseController extends Controller
      *             type="string"
      *         )
      *     ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          description="Page number to fetch the data",
+     *          required=false,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=201,
      *          description="Successful operation",
@@ -177,7 +187,7 @@ class CourseController extends Controller
      *             ),
      *             @OA\Property(
      *              property="data",
-     *              ref="#/components/schemas/Course"
+     *              ref="#/components/schemas/CourseModule"
      *              )
      *          )
      *       ),

@@ -88,6 +88,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -118,7 +127,7 @@
                                             "example": true
                                         },
                                         "data": {
-                                            "$ref": "#/components/schemas/Course"
+                                            "$ref": "#/components/schemas/CourseModule"
                                         }
                                     },
                                     "type": "object"

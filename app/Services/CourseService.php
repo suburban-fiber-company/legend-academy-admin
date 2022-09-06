@@ -14,9 +14,9 @@ class CourseService
 {
     use BaseResponse;
 
-    public function all()
+    public function all($pageSize)
     {
-        $courses = Course::with('modules.pages')->paginate(10);
+        $courses = Course::with('modules.pages')->orderBy('name','ASC')->paginate($pageSize);
 
         return $courses;
         //return CourseResource::collection($courses);
@@ -24,7 +24,7 @@ class CourseService
     }
 
     public function courseModule()
-    {
+    {   
         $courses = Course::orderBy('name','ASC')->simplePaginate(10);
         return CourseModuleResource::collection($courses);
         
