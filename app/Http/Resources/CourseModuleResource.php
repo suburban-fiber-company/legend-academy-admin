@@ -23,6 +23,7 @@ class CourseModuleResource extends JsonResource
             'user_id' => $this->user_id,
             'department_id' => $this->department_id,
             'status' => $this->status,
+            'created_by'=> "johnebuka@gmail.com",
             'modules' => ModuleResource::collection($this->modules),
             'created_at' => $this->created_at->format('F jS, Y'),
             'updated_at' => $this->updated_at->format('F jS, Y'),

@@ -17,10 +17,12 @@ class QuestionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'course_id' => $this->course_id,
-            'module_id' => $this->module_id,
-            'question_text' => $this->question_text,
-            'question_options' => QuestionOptionResource::collection($this->options),
+            'question' => $this->question,
+            'correct_answer' => $this->correct_answer,
+            'quiz_id' => $this->quiz_id,
+            'options' => QuestionOptionResource::collection($this->options),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

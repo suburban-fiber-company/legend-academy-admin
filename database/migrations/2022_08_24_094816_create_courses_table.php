@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('unit_id')->nullable();
             $table->unsignedInteger('status')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

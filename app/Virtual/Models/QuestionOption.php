@@ -37,17 +37,6 @@ class QuestionOption {
      */
     public $option;
 
-     /**
-     * @OA\Property(
-     *      title="Correct answer",
-     *      description="To determine if this option is correct",
-     *      format="int64",
-     *      example=0
-     * )
-     *
-     * @var integer
-     */
-    public $correct;
 
      /**
      * @OA\Property(

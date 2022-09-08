@@ -15,7 +15,7 @@ class CourseService
     use BaseResponse;
 
     public function all($pageSize)
-    {
+    {   
         $courses = Course::with('modules.pages')->orderBy('name','ASC')->paginate($pageSize);
 
         return $courses;
@@ -39,13 +39,13 @@ class CourseService
 
             $module = $course->modules()->create([
                 'course_id' => $course->id,
-                'title'   => 'First Title',
+                'title'   => 'First Module',
             ]);
 
             $module->pages()->create([
                 'course_id' => $course->id,
-                'title' => 'First Title',
-                'content' => 'First Content',
+                'title' => 'First Page',
+                'content' => 'First Page Content',
             ]);
             
             DB::commit();
@@ -110,6 +110,14 @@ class CourseService
         return new CourseResource($course);
     }
 
+    public function Unpublish($course, $id)
+    {
+        $course = Course::find($id);
+        $course->update(['status'=>0]);
+
+        return new CourseResource($course);
+    }
+
     public function destroy($id)
     {
         $course = Course::find($id);
@@ -119,5 +127,22 @@ class CourseService
         $data = $course->delete();
         return $data;
         
+    }
+
+    public function restore($id)
+    {
+        $course = Course::withTrashed()->find($id);
+        if (is_null($course)) {
+            return false;
+        }
+        $data = $course->restore();
+        return $data;
+    } 
+
+    public function restoreAll()
+    {
+        Course::onlyTrashed()->restore();
+  
+        return 'true';
     }
 }

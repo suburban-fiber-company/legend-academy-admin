@@ -10,10 +10,9 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable =[
-        'course_id',
-        'module_id',
-        'question_text',
-        'time_limit'
+        'question',
+        'correct_answer',
+        'quiz_id',
     ];
 
     public function options() {

@@ -524,6 +524,81 @@ class CourseController extends Controller
         return $this->sendResponse($course,'Course Published Successfully.');
     }
 
+       /**
+     * @OA\Patch(
+     *      path="/api/v1/unpublish-course/{id}",
+     *      operationId="UnpublishCourse",
+     *      tags={"Courses"},
+     *      summary="Unpublish a course",
+     *      description="Returns no data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+       *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Unublished Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+    public function Unpublish(Request $request, $id)
+    {   
+        $course = $this->courseService->Unpublish($request->all(), $id);
+        if(!$course){
+            return $this->sendError('Course not Found.',[], 404); 
+        }
+        return $this->sendResponse($course,'Course Unpublished Successfully.');
+    }
+
     
     /**
      * @OA\Delete(
@@ -595,5 +670,137 @@ class CourseController extends Controller
             return $this->sendError('Course not Found.',[],404); 
         }
         return $this->sendResponse($course,'Course Delete successfully.');
+    }
+
+     /**
+     * @OA\Get(
+     *      path="/api/v1/restore-course/{id}",
+     *      operationId="RestoredeletedCourse",
+     *      tags={"Courses"},
+     *      summary="Delete existing course",
+     *      description="Restore a deleted course returns no data",
+     *      security={ {"bearer": {} }},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Course id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="Course Restored Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+
+    public function restore($id)
+    {
+        $course = $this->courseService->restore($id);
+        if(!$course){
+            return $this->sendError('Course not Found.',[],404); 
+        }
+        return $this->sendResponse($course,'Course Restored successfully.');
+    }
+
+     /**
+     * @OA\Get(
+     *      path="/api/v1/restore-all-courses",
+     *      operationId="RestoreAlldeletedCourse",
+     *      tags={"Courses"},
+     *      summary="Delete existing course",
+     *      description="Restore all deleted courses and returns no data",
+     *      security={ {"bearer": {} }},
+     *     @OA\Parameter(
+     *         name="bearer_token",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  description="message",
+     *                  example="All Courses Restored Successfully"
+     *             ),
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  description="success",
+     *                  example=True
+     *             ),
+     *             @OA\Property(
+     *              property="data",
+     *               example=null
+     *              )
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+
+    public function restoreAll($id)
+    {
+        $course = $this->courseService->restoreAll($id);
+        return $this->sendResponse($course,'All Courses Restored successfully.');
     }
 }

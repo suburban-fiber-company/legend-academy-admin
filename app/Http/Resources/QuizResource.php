@@ -3,8 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\QuestionResource;
 
-class QuestionOptionResource extends JsonResource
+class QuizResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +17,11 @@ class QuestionOptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'question_id' => $this->question_id,
-            'option'  => $this->option,
+            'course_id' =>$this->course_id,
+            'module_id' => $this->module_id,
+            'published' => $this->published ? true : false,
+            'questions' => QuestionResource::collection($this->questions),
+            'date_created' => $this->date_created,
         ];
     }
 }

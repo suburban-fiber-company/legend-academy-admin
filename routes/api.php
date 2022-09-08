@@ -12,6 +12,7 @@ use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionsOptionsController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('/v1/courses/{id}', 'delete');
         Route::get('/v1/courses-modules', 'courseModule');
         Route::get('/v1/courses/{id}/modules', 'findCourseModule');
+        Route::get('/v1/restore-course/{id}/', 'restore');
+        Route::get('/v1/restore-all-courses', 'restoreAll');
     });
 
     Route::controller(ModuleController::class)->group(function () {
@@ -80,6 +83,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::delete('/v1/users/{id}', 'delete');
         Route::get('/v1/user-course', 'userCourse');
         Route::get('/v1/users/{id}/courses', 'findUserCourse');
+    });
+
+    Route::controller(QuizController::class)->group(function () {
+        Route::get('/v1/quizzes', 'index');
+        Route::post('/v1/quizzes', 'save');
+        Route::get('/v1/quizzes/{id}', 'edit');
+        Route::put('/v1/quizzes/{id}', 'update');
+        Route::patch('/v1/publish-quiz/{id}', 'publish');
+        Route::delete('/v1/quizzes/{id}', 'delete');
     });
 
     Route::controller(QuestionController::class)->group(function () {

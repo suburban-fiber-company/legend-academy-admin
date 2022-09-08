@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -21,7 +22,14 @@ class UserResource extends JsonResource
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'user_type' => $this->user_type,
-            'department_id' => $this->department_id,
+            'department' => $this->department($this->department_id),
+            'created_at' => $this->created_at->format('F jS, Y'),
         ];
+    }
+
+    protected function department($id) {
+
+        $data = Department::find($id);
+        return $data->name;
     }
 }
