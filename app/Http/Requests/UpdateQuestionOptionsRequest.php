@@ -24,7 +24,8 @@ class UpdateQuestionOptionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'question_id' => 'required|exists:questions,id',
+            'option' => 'required',
+            'question_id' => 'required',
         ];
     }
 }

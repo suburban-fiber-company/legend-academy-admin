@@ -52,89 +52,6 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-     /**
-     * @OA\Post(
-     *      path="/api/v1/questions",
-     *      operationId="storeQuestion",
-     *      tags={"QuizQuestion"},
-     *      summary="Store new question",
-     *      description="Returns question data",
-     *      security={ {"bearer": {} }},
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/StoreQuestionRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/Question")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     * )
-     */
-
-    public function store(StoreQuestionRequest $request)
-    {
-        //
-        try {
-
-           // return $this->sendResponse($request->all(), 'Question Saved Successfully.');
-            DB::beginTransaction();
-            $optionArray = $request->question_options;
-            $correctOptions = $request->correct;
-
-            $question = new Question();
-            $question->module_id = $request->module_id;
-            $question->course_id = $request->course_id;
-            $question->question_text = $request->question_text;
-            $question->save();
-
-            $questionToAdd = Question::latest()->first();
-            $questionID = $questionToAdd->id;
-            
-            foreach ($optionArray as $index => $opt) {
-                $option = new Options();
-                $option->question_id = $questionID;
-                $option->option = $opt['option'];
-                $option->correct = $opt['correct'];
-                $option->save();
-               
-            }
-            
-            DB::commit();
-            $data  = Question::where('id', $questionID)->first();
-
-            return $this->sendResponse(new QuestionResource($data), 'Question Saved Successfully.',201);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw new HttpResponseException(
-                $this->sendError('An Error Occured', ['error' => $e->getMessage()], 500)
-            );
-        }
-    }
-
-    
-    /**
      * @OA\Get(
      *      path="/api/v1/questions/{id}",
      *      operationId="getQuestionById",
@@ -233,10 +150,7 @@ class QuestionController extends Controller
         //
         try {
             $question = Question::find($id);
-            $question->course_id = $request->course_id;
-            $question->module_id = $request->course_id;
-            $question->question_text = $request->question_text;
-            $question->save();
+            $$question->update($request->all());
             $question = Question::find($id);
 
             DB::commit();

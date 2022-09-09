@@ -581,6 +581,210 @@
                 ]
             }
         },
+        "/api/v1/unpublish-course/{id}": {
+            "patch": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Unpublish a course",
+                "description": "Returns no data",
+                "operationId": "UnpublishCourse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Course id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Unublished Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/restore-course/{id}": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Delete existing course",
+                "description": "Restore a deleted course returns no data",
+                "operationId": "RestoredeletedCourse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Course id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Course Restored Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/restore-all-courses": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Delete existing course",
+                "description": "Restore all deleted courses and returns no data",
+                "operationId": "RestoreAlldeletedCourse",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "All Courses Restored Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/departments": {
             "get": {
                 "tags": [
@@ -1659,50 +1863,6 @@
                         "bearer": []
                     }
                 ]
-            },
-            "post": {
-                "tags": [
-                    "QuizQuestion"
-                ],
-                "summary": "Store new question",
-                "description": "Returns question data",
-                "operationId": "storeQuestion",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/StoreQuestionRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Question"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
             }
         },
         "/api/v1/questions/{id}": {
@@ -2019,6 +2179,344 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/quizzes": {
+            "get": {
+                "tags": [
+                    "Quizzes"
+                ],
+                "summary": "Get list of quiz",
+                "description": "Returns list of quiz",
+                "operationId": "getQuizList",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Quiz Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Quiz"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Quizzes"
+                ],
+                "summary": "Store new quiz",
+                "description": "Returns quiz data",
+                "operationId": "storeQuiz",
+                "parameters": [
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreQuizRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Quiz created successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Quiz"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/quizzes/{id}": {
+            "get": {
+                "tags": [
+                    "Quizzes"
+                ],
+                "summary": "Get Quiz information",
+                "description": "Returns quiz data",
+                "operationId": "getQuizById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Quiz id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Quiz  Retrieved Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Quiz"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Quizzes"
+                ],
+                "summary": "Delete existing course",
+                "description": "Deletes a record and returns no data",
+                "operationId": "deleteQuiz",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Quiz id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Quiz Deleted Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/publish-quiz/{id}": {
+            "patch": {
+                "tags": [
+                    "Quizzes"
+                ],
+                "summary": "Publish a quiz",
+                "description": "Returns no data",
+                "operationId": "publishQuiz",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Quiz id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "bearer_token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "message",
+                                            "type": "string",
+                                            "example": "Quiz Published Successfully"
+                                        },
+                                        "success": {
+                                            "description": "success",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "example": null
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "401": {
                         "description": "Unauthenticated"
@@ -3300,29 +3798,21 @@
                         "format": "int64",
                         "example": 1
                     },
-                    "question_text": {
+                    "question": {
                         "title": "Question Text",
                         "description": "Question Text of the new Question",
                         "type": "string",
                         "example": "What is Laravel"
                     },
-                    "course_id": {
-                        "title": "Course ID",
-                        "description": "Course id of the new question",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 1
+                    "correct_answer": {
+                        "title": "Correct Answer",
+                        "description": "Correct answer of the new Question",
+                        "type": "string",
+                        "example": "What is Laravel"
                     },
-                    "module_id": {
-                        "title": "Module ID",
-                        "description": "Module id of the new Question",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 1
-                    },
-                    "time_limit": {
-                        "title": "Time Limit",
-                        "description": "Time Limit (sec) of the new Question",
+                    "quiz_id": {
+                        "title": "Quiz ID",
+                        "description": "Quiz id of the new question",
                         "type": "integer",
                         "format": "int64",
                         "example": 1
@@ -3372,13 +3862,6 @@
                         "type": "string",
                         "example": "Laravel is an MVC"
                     },
-                    "correct": {
-                        "title": "Correct answer",
-                        "description": "To determine if this option is correct",
-                        "type": "integer",
-                        "format": "int64",
-                        "example": 0
-                    },
                     "question_id": {
                         "title": "Question ID",
                         "description": "Question id of the new question option",
@@ -3404,6 +3887,72 @@
                 "type": "object",
                 "xml": {
                     "name": "Question"
+                }
+            },
+            "Quiz": {
+                "title": "Quiz",
+                "description": "Quiz model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "publish": {
+                        "title": "Publish",
+                        "description": "Publish",
+                        "type": "boolean",
+                        "format": "int64",
+                        "example": false
+                    },
+                    "date_created": {
+                        "title": "Date Created",
+                        "description": "The date the Quiz was created",
+                        "type": "string",
+                        "example": "2020-01-27"
+                    },
+                    "questions": {
+                        "title": "Qustions",
+                        "description": "Question model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Question"
+                        }
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Quiz"
                 }
             },
             "Unit": {
@@ -3616,6 +4165,33 @@
                     "name": "UserCourse"
                 }
             },
+            "QuizRequest": {
+                "title": "Quiz request",
+                "description": "Quiz request body data",
+                "properties": {
+                    "question": {
+                        "title": "Question Text",
+                        "description": "Question Text of the new Question",
+                        "type": "string",
+                        "example": "What is Laravel"
+                    },
+                    "correct_answer": {
+                        "title": "Correct Answer",
+                        "description": "Correct answer of the new Question",
+                        "type": "string",
+                        "example": "Laravel is an MVC framework"
+                    },
+                    "options": {
+                        "title": "Option",
+                        "description": "Question model",
+                        "type": "array",
+                        "items": {
+                            "example": "Laravel is an MVC framework"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "StoreCourseRequest": {
                 "title": "Store Course request",
                 "description": "Store Course request body data",
@@ -3746,7 +4322,7 @@
                 "title": "Store Question request",
                 "description": "Store Question request body data",
                 "properties": {
-                    "question_text": {
+                    "question": {
                         "title": "Question Text",
                         "description": "Question Text of the new Question",
                         "type": "string",
@@ -3779,6 +4355,41 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/StoreQuestionOptionRequest"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "StoreQuizRequest": {
+                "title": "Store Quiz request",
+                "description": "Store Quiz request body data",
+                "properties": {
+                    "course_id": {
+                        "title": "Course ID",
+                        "description": "Course ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "module_id": {
+                        "title": "Module ID",
+                        "description": "Module ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "date_created": {
+                        "title": "Date Created",
+                        "description": "The date the Quiz was created",
+                        "type": "string",
+                        "example": "2020-01-27"
+                    },
+                    "questions": {
+                        "title": "Question",
+                        "description": "Question model",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/QuizRequest"
                         }
                     }
                 },
@@ -4409,6 +5020,24 @@
                 "type": "object",
                 "xml": {
                     "name": "QuestionResource"
+                }
+            },
+            "QuizResource": {
+                "title": "QuizResource",
+                "description": "Quiz resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Quiz"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "QuizResource"
                 }
             },
             "UserCourseResource": {

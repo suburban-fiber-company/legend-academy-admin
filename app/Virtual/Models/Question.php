@@ -2,10 +2,6 @@
 
 namespace App\Virtual\Models;
 
-'question',
-        'correct_answer',
-        'quiz_id',
-
 /**
  * @OA\Schema(
  *     title="Question",

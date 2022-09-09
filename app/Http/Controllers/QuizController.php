@@ -297,15 +297,15 @@ class QuizController extends Controller
     
     /**
      * @OA\Delete(
-     *      path="/api/v1/courses/{id}",
-     *      operationId="deleteCourse",
+     *      path="/api/v1/quizzes/{id}",
+     *      operationId="deleteQuiz",
      *      tags={"Quizzes"},
      *      summary="Delete existing course",
      *      description="Deletes a record and returns no data",
      *      security={ {"bearer": {} }},
      *      @OA\Parameter(
      *          name="id",
-     *          description="Course id",
+     *          description="Quiz id",
      *          required=true,
      *          in="path",
      *          @OA\Schema(

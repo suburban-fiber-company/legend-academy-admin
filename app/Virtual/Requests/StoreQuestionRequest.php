@@ -21,7 +21,7 @@ class StoreQuestionRequest {
      *
      * @var string
      */
-    public $question_text;
+    public $question;
 
      /**
      * @OA\Property(

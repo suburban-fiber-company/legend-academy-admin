@@ -32,8 +32,8 @@ class UpdateQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'module_id' => 'required',
-            'question_text' => 'required',
+            'question' => 'required',
+            'correct_answer' => 'required',
         ];
     }
 
