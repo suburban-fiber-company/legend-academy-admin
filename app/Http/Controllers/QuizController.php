@@ -287,7 +287,7 @@ class QuizController extends Controller
 
     public function publish(Request $request, $id)
     {   
-        $course = $this->courseService->publish($request->all(), $id);
+        $course = $this->quizService->publish($request->all(), $id);
         if(!$course){
             return $this->sendError('Course not Found.',[], 404); 
         }

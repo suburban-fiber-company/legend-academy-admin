@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
-use App\Models\QuestionOption  as Options;
-use App\Models\Question;
 use App\Http\Resources\QuestionResource;
-use Illuminate\Http\Request;
 use App\Traits\BaseResponse;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use DB;
+use App\Services\QuestionService;
 
 class QuestionController extends Controller
 {
 
     use BaseResponse;
+
+    public $questionService;
+
+    public function __construct(QuestionService $questionService)
+    {
+        $this->questionService = $questionService; 
+    }
 
      /**
      * @OA\Get(
@@ -46,7 +48,7 @@ class QuestionController extends Controller
     {
         //
 
-        $questions = Question::all();
+        $questions = $this->questionService->index();
 
         return $this->sendResponse(QuestionResource::collection($questions), 'Question Retrieved Successfully.');
     }
@@ -93,7 +95,7 @@ class QuestionController extends Controller
     {
         //
 
-        $question = Question::find($id);
+        $question = $this->questionService->edit($id);
         if (!$question) {
             return $this->sendError('Question not Found.', [], 404);
         }
@@ -147,20 +149,12 @@ class QuestionController extends Controller
 
     public function update(UpdateQuestionRequest $request, $id)
     {
-        //
-        try {
-            $question = Question::find($id);
-            $$question->update($request->all());
-            $question = Question::find($id);
-
-            DB::commit();
-            return $this->sendResponse(new QuestionResource($question), 'Question Updated Successfully.');
-        } catch (\Exception $e) {
-
-            throw new HttpResponseException(
-                $this->sendError('An Error Occured', ['error' => $e->getMessage()], 500)
-            );
+        $question = $this->questionService->update($request->all(), $id);
+        if(!$question){
+            return $this->sendError('Page not Found.',[], 404); 
         }
+
+        return $this->sendResponse(new QuestionResource($question), 'Question Updated Successfully.');
     }
     
     /**
@@ -202,14 +196,11 @@ class QuestionController extends Controller
 
     public function destroy($id)
     {
-        //
-
-        $question = Question::find($id);
-       
-        if (!$question) {
-            return $this->sendError('question not Found.', [], 404);
+        $question = $this->questionService->destroy($id);
+        if(!$question){
+            return $this->sendError('Question not Found.',[], 404); 
         }
-        $question->delete();
+
         return $this->sendResponse(new QuestionResource($question), 'Question Deleted successfully.');
     }
 }

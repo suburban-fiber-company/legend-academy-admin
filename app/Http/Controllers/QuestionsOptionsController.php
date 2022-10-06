@@ -6,12 +6,20 @@ use App\Http\Requests\UpdateQuestionOptionsRequest;
 use App\Models\QuestionOption as Options;
 use App\Http\Resources\QuestionOptionResource;
 use App\Traits\BaseResponse;
+use App\Services\QuestionOptionService;
 
 class QuestionsOptionsController extends Controller
 {
 
     
     use BaseResponse;
+
+    public $questionOptionService;
+
+    public function __construct(QuestionOptionService $questionOptionService)
+    {
+        $this->questionOptionService = $questionOptionService; 
+    }
 
     
      /**
@@ -45,7 +53,7 @@ class QuestionsOptionsController extends Controller
     {
         //
 
-        $options = Options::all();
+        $options = $this->questionOptionService->index();
 
         return $this->sendResponse(QuestionOptionResource::collection($options), 'Options Retrieved Successfully.');
     }
@@ -88,12 +96,12 @@ class QuestionsOptionsController extends Controller
      */
 
     public function edit($id)
-    {
-        //
-        $option = Options::find($id);
-        if(!$option){
-            return $this->sendError('Option not Found.',[], 404); 
+    {    
+        $option = $this->questionOptionService->edit($id);
+        if (!$option) {
+            return $this->sendError('Option not Found.',[], 404);
         }
+
         return $this->sendResponse(new QuestionOptionResource($option), 'Option Retrived Successfully.');
     }
 
@@ -144,19 +152,12 @@ class QuestionsOptionsController extends Controller
 
     public function update(UpdateQuestionOptionsRequest $request, $id)
     {
-        //
-
-        $option = Options::find($id);
-
+        $option = $this->questionOptionService->update($request->all(), $id);
         if(!$option){
-            return $this->sendError('Option not Found.',[], 404); 
+            return $this->sendError('Option not Found.',[], 404);  
         }
 
-        $option = $option->update($request->all());
-
-        $option = Options::find($id);
-
-        return $this->sendResponse(new QuestionOptionResource($option), 'Question Updated Successfully.');
+        return $this->sendResponse(new QuestionOptionResource($option), 'Question Option Updated Successfully.');
     }
 
     
@@ -201,14 +202,11 @@ class QuestionsOptionsController extends Controller
     {
         //
 
-        $option = Options::find($id);
+        $option = $this->questionOptionService->destroy($id);
 
         if(!$option){
             return $this->sendError('Option not Found.',[], 404); 
         }
-
-        $option->delete();
-
-        return $this->sendResponse(new QuestionOptionResource($option), 'Question Deleted Successfully.');
+        return $this->sendResponse(new QuestionOptionResource($option), 'Question Option Deleted Successfully.');
     }
 }
